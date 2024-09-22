@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	private static final String WINDOW_TITLE = "sample java";
+	private static final String WINDOW_TITLE = "Markees Ewers Pantry Projext";
 	private static final String GUI_RESOURCE = "view/MainWindow.fxml";
 
 	/**
