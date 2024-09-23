@@ -7,37 +7,37 @@ package edu.westga.cs1302.pantryproject1.model;
  * @author me00070@my.westga.edu
  */
 public class FoodItem {
-	
+
 	/** The Constant STARTING_QUANTITY. */
-	public static final int STARTING_QUANTITY = 0; 
-	
+	public static final int STARTING_QUANTITY = 0;
+
 	/** The name. */
 	private final String name;
-	
+
 	/** The type. */
 	private final String type;
-	
+
 	/** The quantity. */
 	private int quantity;
 
 	/**
 	 * Instantiates a new food item.
 	 *
-	 * @param name the name
+	 * @param name     the name
 	 * @param foodType the food type
 	 */
 	public FoodItem(String name, String foodType) {
-		 if (name == null || name.isEmpty()) {
-	            throw new IllegalArgumentException("Name cannot be null or empty");
-	        }
-	        if (foodType == null) {
-	            throw new IllegalArgumentException("Food type cannot be null");
-	        }
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException("Name cannot be null or empty");
+		}
+		if (foodType == null) {
+			throw new IllegalArgumentException("Food type cannot be null");
+		}
 		this.name = name;
 		this.type = foodType;
 		this.quantity = FoodItem.STARTING_QUANTITY;
 	}
-	
+
 	/**
 	 * Gets the name.
 	 *
@@ -46,7 +46,7 @@ public class FoodItem {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	/**
 	 * Gets the type.
 	 *
@@ -55,7 +55,7 @@ public class FoodItem {
 	public String getType() {
 		return this.type;
 	}
-	
+
 	/**
 	 * Gets the quantity.
 	 *
@@ -64,7 +64,19 @@ public class FoodItem {
 	public int getQuantity() {
 		return this.quantity;
 	}
-	
+
+	/**
+	 * sets the quantity
+	 * 
+	 * @param quantity to be set
+	 */
+	public void setQuantity(int quantity) {
+		if (quantity < 1) {
+			throw new NullPointerException("Quantity cannot be be below 1");
+		}
+		this.quantity = quantity;
+	}
+
 	/**
 	 * To string.
 	 *

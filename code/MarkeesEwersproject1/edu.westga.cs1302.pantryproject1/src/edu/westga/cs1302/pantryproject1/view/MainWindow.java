@@ -18,10 +18,20 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  * The Class MainWindow.
+ * 
  * @author me00070
  * @version fall 2024
  */
 public class MainWindow {
+
+	@FXML
+	private TextField amountTextField;
+
+	@FXML
+	private Button decrementButton;
+
+	@FXML
+	private Button incrementButton;
 
 	/** The resources. */
 	@FXML
@@ -50,7 +60,7 @@ public class MainWindow {
 	/** The pane. */
 	@FXML
 	private AnchorPane pane;
-	
+
 	/** The food items. */
 	private ObservableList<FoodItem> foodItems;
 
@@ -62,24 +72,67 @@ public class MainWindow {
 	@FXML
 	void addFood(ActionEvent event) {
 		try {
+			if (Integer.parseInt(this.amountTextField.getText()) < 1) {
+				throw new IllegalArgumentException("Quantity must be greater than 0");
+			}
 			String name = this.foodNameTextField.getText();
 			String type = this.foodTypeComboBox.getValue();
-
-			FoodItem foodItem = new FoodItem(name, type); 
+			FoodItem foodItem = new FoodItem(name, type);
+			foodItem.setQuantity(Integer.parseInt(this.amountTextField.getText()));
 			this.foodItems.add(foodItem);
-			
+
+			this.amountTextField.clear();
 			this.foodNameTextField.clear();
 			this.foodTypeComboBox.getSelectionModel().clearSelection();
-			
+
+		} catch (NumberFormatException ex) {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setTitle("Error Creating Name");
+			errorAlert.setHeaderText(null);
+			errorAlert.setContentText("Amount must be a number");
+			System.out.println("1");
+
+			errorAlert.showAndWait();
+			this.foodNameTextField.clear();
 		} catch (IllegalArgumentException ex) {
 			Alert errorAlert = new Alert(AlertType.ERROR);
-	        errorAlert.setTitle("Error Creating Name");
-	        errorAlert.setHeaderText(null);
-	        errorAlert.setContentText(ex.getMessage());
-	        errorAlert.showAndWait();
-	        this.foodNameTextField.clear();
+			errorAlert.setTitle("Error Creating Name");
+			errorAlert.setHeaderText(null);
+			errorAlert.setContentText("Name cannot be empty");
+			System.out.println("2");
+
+			errorAlert.showAndWait();
+			this.foodNameTextField.clear();
 		}
 
+	}
+
+	@FXML
+	void decrementCurrentSelection(ActionEvent event) {
+
+		try {
+			int oldQuantity = this.foodListView.getSelectionModel().getSelectedItem().getQuantity();
+			int newQuantity = oldQuantity - 1;
+
+			this.foodListView.getSelectionModel().getSelectedItem().setQuantity(newQuantity);
+			this.foodListView.refresh();
+		} catch (NullPointerException ex) {
+			this.foodItems.remove(this.foodListView.getSelectionModel().getSelectedItem());
+		}
+	}
+
+	@FXML
+	void incrementCurrentSelection(ActionEvent event) {
+		try {
+			int oldQuantity = this.foodListView.getSelectionModel().getSelectedItem().getQuantity();
+			int newQuantity = oldQuantity + 1;
+
+			this.foodListView.getSelectionModel().getSelectedItem().setQuantity(newQuantity);
+			this.foodListView.refresh();
+		} catch (NullPointerException ex) {
+			// this just catches the exception to make sure that there is nothing inside of
+			// console
+		}
 	}
 
 	/**
@@ -99,27 +152,32 @@ public class MainWindow {
 	 */
 	@FXML
 	void initialize() {
-		 System.out.println("Initializing...");
+		System.out.println("Initializing...");
 
-	        // Initialize the ObservableList for the ListView
-	        this.foodItems = FXCollections.observableArrayList();
+		// Initialize the ObservableList for the ListView
+		this.foodItems = FXCollections.observableArrayList();
 
-	        // Bind the ObservableList to the ListView
-	        this.foodListView.setItems(this.foodItems);
+		// Bind the ObservableList to the ListView
+		this.foodListView.setItems(this.foodItems);
 
-        // Populate the ComboBox
-        this.populateComboBox();
+		// Populate the ComboBox
+		this.populateComboBox();
 
 		assert this.addFoodButton != null
 				: "fx:id=\"addFoodButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
+		assert this.amountTextField != null
+				: "fx:id=\"amountTextField\" was not injected: check your FXML file 'MainWindow.fxml'.";
+		assert this.decrementButton != null
+				: "fx:id=\"decrementButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
 		assert this.foodListView != null
 				: "fx:id=\"foodListView\" was not injected: check your FXML file 'MainWindow.fxml'.";
 		assert this.foodNameTextField != null
 				: "fx:id=\"foodNameTextField\" was not injected: check your FXML file 'MainWindow.fxml'.";
 		assert this.foodTypeComboBox != null
 				: "fx:id=\"foodTypeComboBox\" was not injected: check your FXML file 'MainWindow.fxml'.";
+		assert this.incrementButton != null
+				: "fx:id=\"incrementButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
 		assert this.pane != null : "fx:id=\"pane\" was not injected: check your FXML file 'MainWindow.fxml'.";
-		this.populateComboBox();
-	}
 
+	}
 }
