@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import edu.westga.cs1302.pantryproject1.model.FoodItem;
+import edu.westga.cs1302.pantryproject1.model.PantryUtility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +24,9 @@ import javafx.scene.layout.AnchorPane;
  * @version fall 2024
  */
 public class MainWindow {
+
+	@FXML
+	private Button deleteFoodItemButton;
 
 	@FXML
 	private TextField amountTextField;
@@ -146,6 +150,27 @@ public class MainWindow {
 
 		for (String curr : foodTypes) {
 			this.foodTypeComboBox.getItems().addAll(curr);
+		}
+	}
+
+	@FXML
+	void getCountOfAllItems(ActionEvent event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Count of All Items");
+		alert.setHeaderText("Count of All Items");
+		alert.setContentText(" All Items = " + PantryUtility.getTotalQuantity(this.foodListView.getItems()));
+		alert.showAndWait();
+	}
+
+	@FXML
+	void deleteSelectedFoodItem(ActionEvent event) {
+		try {
+			FoodItem currentSelection = this.foodListView.getSelectionModel().getSelectedItem();
+			this.foodItems.remove(currentSelection);
+			this.foodListView.refresh();
+		} catch (NullPointerException ex) {
+			System.out.println("Nothing is selected");
+
 		}
 	}
 
