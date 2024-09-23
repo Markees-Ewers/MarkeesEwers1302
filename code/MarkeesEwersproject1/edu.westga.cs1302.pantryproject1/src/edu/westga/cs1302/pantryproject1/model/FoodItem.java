@@ -77,12 +77,18 @@ public class FoodItem {
 		this.quantity = quantity;
 	}
 
+	/**
+	 * Increment quantity.
+	 */
 	public void incrementQuantity() {
 
 		this.quantity += 1;
 
 	}
 
+	/**
+	 * Decrement quantity.
+	 */
 	public void decrementQuantity() {
 		
 		this.quantity -= 1;
