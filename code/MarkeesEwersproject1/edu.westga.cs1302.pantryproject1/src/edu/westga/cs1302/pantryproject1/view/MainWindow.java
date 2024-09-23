@@ -111,10 +111,13 @@ public class MainWindow {
 	void decrementCurrentSelection(ActionEvent event) {
 
 		try {
-			int oldQuantity = this.foodListView.getSelectionModel().getSelectedItem().getQuantity();
-			int newQuantity = oldQuantity - 1;
+			FoodItem currentItem = this.foodListView.getSelectionModel().getSelectedItem();
+			if (currentItem.getQuantity() <= 1) {
+				this.foodItems.remove(currentItem);
+				this.foodListView.refresh();
+			}
+			currentItem.decrementQuantity();
 
-			this.foodListView.getSelectionModel().getSelectedItem().setQuantity(newQuantity);
 			this.foodListView.refresh();
 		} catch (NullPointerException ex) {
 			this.foodItems.remove(this.foodListView.getSelectionModel().getSelectedItem());
@@ -124,10 +127,9 @@ public class MainWindow {
 	@FXML
 	void incrementCurrentSelection(ActionEvent event) {
 		try {
-			int oldQuantity = this.foodListView.getSelectionModel().getSelectedItem().getQuantity();
-			int newQuantity = oldQuantity + 1;
+			FoodItem currentItem = this.foodListView.getSelectionModel().getSelectedItem();
 
-			this.foodListView.getSelectionModel().getSelectedItem().setQuantity(newQuantity);
+			currentItem.incrementQuantity();
 			this.foodListView.refresh();
 		} catch (NullPointerException ex) {
 			// this just catches the exception to make sure that there is nothing inside of

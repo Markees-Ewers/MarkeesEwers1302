@@ -77,6 +77,17 @@ public class FoodItem {
 		this.quantity = quantity;
 	}
 
+	public void incrementQuantity() {
+
+		this.quantity += 1;
+
+	}
+
+	public void decrementQuantity() {
+		
+		this.quantity -= 1;
+	}
+
 	/**
 	 * To string.
 	 *
