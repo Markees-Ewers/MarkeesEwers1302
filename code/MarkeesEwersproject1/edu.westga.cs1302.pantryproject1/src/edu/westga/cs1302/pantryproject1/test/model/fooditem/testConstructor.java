@@ -2,7 +2,6 @@ package edu.westga.cs1302.pantryproject1.test.model.fooditem;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs1302.pantryproject1.model.FoodItem;
