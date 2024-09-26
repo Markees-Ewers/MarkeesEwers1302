@@ -16,7 +16,6 @@ public class PantryUtility {
 	 * @param pantry the pantry
 	 * @return the total quantity
 	 */
-
 	public static int getTotalQuantity(List<FoodItem> pantry) {
 		int totalQuantity = 0;
 
