@@ -1,7 +1,10 @@
 package edu.westga.cs1302.bill.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Supports saving and loading bill data,
@@ -47,10 +50,50 @@ public class BillPersistenceManager {
 	 * @precondition none
 	 * @postcondition none
 	 * 
+	 * @param filePath where the bill will be saved to
+	 * 
 	 * @return the bill loaded
 	 */
-	public static Bill loadBillData() {
-		return null;
+	public static Bill loadBillData(String filePath) {
+		Bill bill = new Bill(); 
+		String serverName = null;
+		int lineCount = 1;
+
+		try (Scanner scanner = new Scanner(new File(filePath))) {
+			while (scanner.hasNextLine()) {
+				lineCount++;
+				String line = scanner.nextLine();
+
+				if (line.startsWith("Server Name: ")) {
+
+					serverName = line.substring("Server Name: ".length()).trim();
+				} else if (line.startsWith("Bill Items:")) {
+
+					continue;
+				} else {
+					// Split the item line into name and amount
+					String[] parts = line.split(",");
+					if (parts.length == 2) {
+						String itemName = parts[0].trim();
+						double itemAmount = Double.parseDouble(parts[1].trim());
+						bill.addItem(new BillItem(itemName, itemAmount));
+					} else {
+						System.out.println("error on line " + lineCount);
+					}
+				}
+			}
+		} catch (FileNotFoundException ex) {
+			System.err.println("File not found: " + ex.getMessage());
+		} catch (NumberFormatException ex) {
+			System.err.println("Error parsing the amount: " + ex.getMessage());
+		}
+
+		// Set the server name if it was read
+		if (serverName != null) {
+			bill.setServerName(serverName);
+		}
+
+		return bill; 
 	}
 
 }
