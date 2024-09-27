@@ -1,7 +1,10 @@
 package edu.westga.cs1302.bill.view;
 
+import java.io.IOException;
+
 import edu.westga.cs1302.bill.model.Bill;
 import edu.westga.cs1302.bill.model.BillItem;
+import edu.westga.cs1302.bill.model.BillPersistenceManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,7 +24,7 @@ public class MainWindow {
     @FXML private TextField amount;
     @FXML private TextArea receiptArea;
     @FXML private ComboBox<String> serverName;
-
+   
     @FXML
     void addItem(ActionEvent event) {
     	try {
@@ -39,6 +42,11 @@ public class MainWindow {
     		Alert alert = new Alert(Alert.AlertType.ERROR);
     		alert.setHeaderText("Unable to add new bill item");
     		alert.setContentText(argError.getMessage());
+    		alert.showAndWait();
+    	} catch (IllegalStateException full) {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+    		alert.setHeaderText("bill list is full");
+    		alert.setContentText(full.getMessage());
     		alert.showAndWait();
     	}
     }
@@ -58,9 +66,16 @@ public class MainWindow {
 
     @FXML
     void saveBillData(ActionEvent event) {
-		Alert alert = new Alert(Alert.AlertType.ERROR);
-		alert.setContentText("Operation not yet implemented!");
-		alert.showAndWait();
+    	System.out.println("im working");
+    	try {
+			BillPersistenceManager.saveBillData(this.bill);
+		} catch (IOException ex) {
+			
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
+		}
+		
     }
 
     @FXML
@@ -68,6 +83,7 @@ public class MainWindow {
         this.serverName.getItems().add("Bob");
         this.serverName.getItems().add("Alice");
         this.serverName.getItems().add("Trudy");
+        
         this.bill = new Bill();
     	this.updateReceipt();
     }

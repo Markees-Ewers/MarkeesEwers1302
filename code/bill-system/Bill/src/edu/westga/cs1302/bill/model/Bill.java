@@ -9,9 +9,13 @@ import java.util.ArrayList;
  * @version Fall 2024
  */
 public class Bill {
-	public static final int MAX_NUMBER_OF_ITEMS = 3;
+	// max number was set to 3 but I changed to 5 because why would you ever limit
+	// how much a customer should pay on a bill?
+	public static final int MAX_NUMBER_OF_ITEMS = 5;
 	private ArrayList<BillItem> items;
-	private int size;
+	// I took out the size field because its redundant if I want to call size id
+	// just call the items.size
+	// private int size;
 	private String serverName;
 
 	/**
@@ -21,8 +25,9 @@ public class Bill {
 		this.serverName = "No Server Set";
 		this.items = new ArrayList<BillItem>();
 	}
-	
-	/** Return the server name for the bill
+
+	/**
+	 * Return the server name for the bill
 	 * 
 	 * @return the server name for the bill
 	 */
@@ -30,7 +35,8 @@ public class Bill {
 		return this.serverName;
 	}
 
-	/** Sets the server name for the bill
+	/**
+	 * Sets the server name for the bill
 	 * 
 	 * @precondition name != null && !name.isEmpty()
 	 * @postcondition getServerName() == name
@@ -47,6 +53,7 @@ public class Bill {
 		this.serverName = name;
 	}
 
+	// assuming that the bill cannot have more than 5 items I fixed the code
 	/**
 	 * Adds the item to the bill
 	 * 
@@ -59,13 +66,15 @@ public class Bill {
 		if (item == null) {
 			throw new IllegalArgumentException("item must not be null.");
 		}
-		if (this.size == Bill.MAX_NUMBER_OF_ITEMS) {
+
+		if (this.items.size() == Bill.MAX_NUMBER_OF_ITEMS) {
 			throw new IllegalStateException("bill items list is full");
 		}
 		this.items.add(item);
 	}
-	
-	/** Return the number of items in the bill
+
+	/**
+	 * Return the number of items in the bill
 	 * 
 	 * @return the number of items in the bill
 	 */

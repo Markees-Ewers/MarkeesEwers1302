@@ -43,7 +43,7 @@ public class BillTextifier {
 
 		return text;
 	}
-
+	
 	private static String formatAsCurrency(double amount) {
 		String result = "$";
 		int number = ((int) (amount * 100));
