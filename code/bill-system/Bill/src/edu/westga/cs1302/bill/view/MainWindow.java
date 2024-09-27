@@ -115,6 +115,7 @@ public class MainWindow {
 		this.serverName.getItems().add("Bob");
 		this.serverName.getItems().add("Alice");
 		this.serverName.getItems().add("Trudy");
+		this.receiptArea.setEditable(false);
 
 		this.bill = new Bill();
 		this.updateReceipt();
