@@ -9,13 +9,8 @@ import java.util.ArrayList;
  * @version Fall 2024
  */
 public class Bill {
-	// max number was set to 3 but I changed to 5 because why would you ever limit
-	// how much a customer should pay on a bill?
-	public static final int MAX_NUMBER_OF_ITEMS = 5;
+	public static final int MAX_NUMBER_OF_ITEMS = 3;
 	private ArrayList<BillItem> items;
-	// I took out the size field because its redundant if I want to call size id
-	// just call the items.size
-	// private int size;
 	private String serverName;
 
 	/**
@@ -53,11 +48,10 @@ public class Bill {
 		this.serverName = name;
 	}
 
-	// assuming that the bill cannot have more than 5 items I fixed the code
 	/**
 	 * Adds the item to the bill
 	 * 
-	 * @precondition item != null && size < 5
+	 * @precondition item != null && size < 3
 	 * @postcondition item is added to the list of items in the bill
 	 * 
 	 * @param item the item to be added to the bill
@@ -67,7 +61,7 @@ public class Bill {
 			throw new IllegalArgumentException("item must not be null.");
 		}
 
-		if (this.items.size() == Bill.MAX_NUMBER_OF_ITEMS) {
+		if (this.items.size() >= Bill.MAX_NUMBER_OF_ITEMS) {
 			throw new IllegalStateException("bill items list is full");
 		}
 		this.items.add(item);

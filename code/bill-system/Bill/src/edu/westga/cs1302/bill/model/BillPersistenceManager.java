@@ -50,25 +50,24 @@ public class BillPersistenceManager {
 	 * @precondition none
 	 * @postcondition none
 	 * 
-	 * @param filePath where the bill will be saved to
 	 * 
 	 * @return the bill loaded
 	 */
-	public static Bill loadBillData(String filePath) {
-		Bill bill = new Bill(); 
+	public static Bill loadBillData() {
+		Bill bill = new Bill();
 		String serverName = null;
 		int lineCount = 1;
 
-		try (Scanner scanner = new Scanner(new File(filePath))) {
+		try (Scanner scanner = new Scanner(new File(DATA_FILE))) {
+			System.out.println("Starting to read the file...");
+
 			while (scanner.hasNextLine()) {
-				lineCount++;
 				String line = scanner.nextLine();
+				System.out.println("Reading line " + lineCount + ": " + line);
 
 				if (line.startsWith("Server Name: ")) {
-
 					serverName = line.substring("Server Name: ".length()).trim();
 				} else if (line.startsWith("Bill Items:")) {
-
 					continue;
 				} else {
 					// Split the item line into name and amount
@@ -76,23 +75,30 @@ public class BillPersistenceManager {
 					if (parts.length == 2) {
 						String itemName = parts[0].trim();
 						double itemAmount = Double.parseDouble(parts[1].trim());
+						System.out.println("Adding item: " + itemName + " with amount: " + itemAmount); 
+																										
 						bill.addItem(new BillItem(itemName, itemAmount));
+						lineCount++;
 					} else {
-						System.out.println("error on line " + lineCount);
+						System.out.println("Error on line " + lineCount + ": " + line); 
 					}
 				}
 			}
 		} catch (FileNotFoundException ex) {
-			System.err.println("File not found: " + ex.getMessage());
+			throw new IllegalArgumentException("File not found: " + ex.getMessage());
 		} catch (NumberFormatException ex) {
-			System.err.println("Error parsing the amount: " + ex.getMessage());
+			throw new NumberFormatException("Error with amount on line: " + lineCount);
 		}
 
 		// Set the server name if it was read
 		if (serverName != null) {
 			bill.setServerName(serverName);
+			System.out.println("Server name set: " + serverName);
+		} else {
+			System.out.println("No server name found.");
 		}
 
+		System.out.println("Returning bill...");
 		return bill; 
 	}
 

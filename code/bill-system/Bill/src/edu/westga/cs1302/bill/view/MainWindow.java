@@ -1,6 +1,5 @@
 package edu.westga.cs1302.bill.view;
 
-import java.io.File;
 import java.io.IOException;
 
 import edu.westga.cs1302.bill.model.Bill;
@@ -13,30 +12,44 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
- * The codebehind for the MainWindow of the application
- * 
+ * The codebehind for the MainWindow of the application.
+ *
  * @author CS 1302
  * @version Fall 2024
  */
 public class MainWindow {
+
+	/** The bill. */
 	private Bill bill;
 
+	/** The name. */
 	@FXML
 	private TextField name;
+
+	/** The amount. */
 	@FXML
 	private TextField amount;
+
+	/** The receipt area. */
 	@FXML
 	private TextArea receiptArea;
+
+	/** The server name. */
 	@FXML
 	private ComboBox<String> serverName;
+
+	/** The load button. */
 	@FXML
 
 	private Button loadButton;
 
+	/**
+	 * Adds the item.
+	 *
+	 * @param event the event
+	 */
 	@FXML
 	void addItem(ActionEvent event) {
 		try {
@@ -63,10 +76,26 @@ public class MainWindow {
 		}
 	}
 
+	/**
+	 * Update receipt.
+	 */
 	private void updateReceipt() {
-		this.receiptArea.setText(BillTextifier.getText(this.bill));
-	}
+		  if (this.bill == null) {
+		        Alert alert = new Alert(Alert.AlertType.ERROR);
+		        alert.setTitle("Error");
+		        alert.setHeaderText("No Bill Data");
+		        alert.setContentText("The bill has not been loaded or is invalid.");
+		        alert.showAndWait();
+		        return; 
+		    }
+		    this.receiptArea.setText(BillTextifier.getText(this.bill));
+		}
 
+	/**
+	 * Select server.
+	 *
+	 * @param event the event
+	 */
 	@FXML
 	void selectServer(ActionEvent event) {
 		String name = this.serverName.getValue();
@@ -76,6 +105,11 @@ public class MainWindow {
 		}
 	}
 
+	/**
+	 * Save bill data.
+	 *
+	 * @param event the event
+	 */
 	@FXML
 	void saveBillData(ActionEvent event) {
 		System.out.println("im working");
@@ -90,34 +124,42 @@ public class MainWindow {
 
 	}
 
+	/**
+	 * Load bill from file.
+	 *
+	 * @param event the event
+	 */
 	@FXML
-
 	void loadBillFromFile(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Select a Bill File");
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
-		fileChooser.getExtensionFilters().add(extFilter);
-
-		File fileToLoad = fileChooser.showOpenDialog(new Stage());
-
-		if (fileToLoad != null) {
-			Bill loadedBill = BillPersistenceManager.loadBillData(fileToLoad.getAbsolutePath());
-			System.out.println("Bill loaded successfully from " + fileToLoad.getAbsolutePath());
-			this.bill = loadedBill;
+		try {
+			this.bill = BillPersistenceManager.loadBillData();
 			this.updateReceipt();
-		} else {
-			System.out.println("Open command canceled by user.");
+
+		} catch (NumberFormatException ex) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
+		} catch (IllegalArgumentException ex) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
 		}
+
 	}
 
+	/**
+	 * Initialize.
+	 */
 	@FXML
 	void initialize() {
 		this.serverName.getItems().add("Bob");
 		this.serverName.getItems().add("Alice");
 		this.serverName.getItems().add("Trudy");
 		this.receiptArea.setEditable(false);
-
+	
 		this.bill = new Bill();
+		
+		this.loadBillFromFile(null);
 		this.updateReceipt();
 	}
 }
