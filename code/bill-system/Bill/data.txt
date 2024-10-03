@@ -1,4 +1,3 @@
-Server Name: Alice
-Bill Items: 
-asdf , 234.0
-sadf , 234.0
+Server Name: John Doe
+Bill Items:
+Pizza
