@@ -90,7 +90,6 @@ public class BillPersistenceManager {
 			throw new NumberFormatException("Error with amount on line: " + lineCount);
 		}
 
-	
 		if (serverName != null) {
 			bill.setServerName(serverName);
 			System.out.println("Server name set: " + serverName);
