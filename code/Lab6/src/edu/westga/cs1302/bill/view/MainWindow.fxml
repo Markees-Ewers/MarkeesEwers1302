@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
+<?xml-model href=""?>
 <AnchorPane minHeight="300.0" minWidth="289.0" prefHeight="334.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs1302.bill.view.MainWindow">
    <children>
       <Button layoutX="129.0" layoutY="39.0" mnemonicParsing="false" onAction="#addItem" prefHeight="74.0" prefWidth="66.0" text="Add Item" />
