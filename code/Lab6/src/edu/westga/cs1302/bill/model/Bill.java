@@ -21,8 +21,9 @@ public class Bill {
 		this.serverName = "No Server Set";
 		this.items = new ArrayList<BillItem>();
 	}
-	
-	/** Return the server name for the bill
+
+	/**
+	 * Return the server name for the bill
 	 * 
 	 * @return the server name for the bill
 	 */
@@ -30,7 +31,8 @@ public class Bill {
 		return this.serverName;
 	}
 
-	/** Sets the server name for the bill
+	/**
+	 * Sets the server name for the bill
 	 * 
 	 * @precondition name != null && !name.isEmpty()
 	 * @postcondition getServerName() == name
@@ -64,8 +66,9 @@ public class Bill {
 		}
 		this.items.add(item);
 	}
-	
-	/** Return the number of items in the bill
+
+	/**
+	 * Return the number of items in the bill
 	 * 
 	 * @return the number of items in the bill
 	 */
@@ -80,6 +83,15 @@ public class Bill {
 	 */
 	public BillItem[] getItems() {
 		return this.items.toArray(new BillItem[this.items.size()]);
+	}
+
+	/**
+	 * Return the list of BillItem objects.
+	 * 
+	 * @return the items in the bill as an ArrayList
+	 */
+	public ArrayList<BillItem> getItemsList() {
+		return this.items;
 	}
 
 }

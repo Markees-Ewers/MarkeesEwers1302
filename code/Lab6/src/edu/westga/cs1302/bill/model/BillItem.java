@@ -54,4 +54,5 @@ public class BillItem {
 	public double getAmount() {
 		return this.amount;
 	}
+
 }

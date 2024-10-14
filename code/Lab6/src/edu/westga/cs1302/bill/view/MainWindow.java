@@ -1,11 +1,13 @@
 package edu.westga.cs1302.bill.view;
 
 import java.io.IOException;
-
+import java.util.Collections;
+import edu.westga.cs1302.bill.model.AscendingComparator;
 import edu.westga.cs1302.bill.model.Bill;
 import edu.westga.cs1302.bill.model.BillItem;
 import edu.westga.cs1302.bill.model.BillPersistenceManager;
 import edu.westga.cs1302.bill.model.CSVBillPersistenceManager;
+import edu.westga.cs1302.bill.model.DescendingComparator;
 import edu.westga.cs1302.bill.model.TSVBillPersistenceManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,21 +64,21 @@ public class MainWindow {
 			this.updateReceipt();
 		}
 	}
-	
+
 	void loadBill() {
-		
-			CSVBillPersistenceManager csv = new CSVBillPersistenceManager();
-			this.bill = csv.loadBillData();
+
+		CSVBillPersistenceManager csv = new CSVBillPersistenceManager();
+		this.bill = csv.loadBillData();
+		if (this.bill.getItems().length == 0) {
+			TSVBillPersistenceManager tsv = new TSVBillPersistenceManager();
+			this.bill = tsv.loadBillData();
+			this.updateReceipt();
 			if (this.bill.getItems().length == 0) {
-				TSVBillPersistenceManager tsv = new TSVBillPersistenceManager();
-				this.bill = tsv.loadBillData();
+				this.displayErrorPopup("Previous Bill was not able to load");
 				this.updateReceipt();
-				if (this.bill.getItems().length == 0) {
-					this.displayErrorPopup("Previous Bill was not able to load");
-					this.updateReceipt();
-				}
 			}
-		
+		}
+
 	}
 
 	@FXML
@@ -84,7 +86,7 @@ public class MainWindow {
 		try {
 			this.billSeperatorComboBox.getSelectionModel().getSelectedItem().saveBillData(this.bill);
 		} catch (IllegalArgumentException ex) {
-		this.displayErrorPopup(ex.getMessage());
+			this.displayErrorPopup(ex.getMessage());
 		} catch (IOException ex) {
 			this.displayErrorPopup("Couldnt save Bill");
 		}
@@ -97,16 +99,33 @@ public class MainWindow {
 	}
 
 	@FXML
+	void sortByDescending(ActionEvent event) {
+		DescendingComparator comp = new DescendingComparator();
+
+		Collections.sort(this.bill.getItemsList(), comp);
+		this.updateReceipt();
+	}
+
+	@FXML
+	void sortbByAscending(ActionEvent event) {
+		AscendingComparator comp = new AscendingComparator();
+
+		Collections.sort(this.bill.getItemsList(), comp);
+		this.updateReceipt();
+
+	}
+
+	@FXML
 	void initialize() {
-		
+
 		this.serverName.getItems().add("Bob");
 		this.serverName.getItems().add("Alice");
 		this.serverName.getItems().add("Trudy");
-		
+
 		this.billSeperatorComboBox.getItems().add(new CSVBillPersistenceManager());
 		this.billSeperatorComboBox.getItems().add(new TSVBillPersistenceManager());
 		this.billSeperatorComboBox.setValue(this.billSeperatorComboBox.getItems().get(0));
-		
+
 		this.bill = new Bill();
 		this.loadBill();
 		this.updateReceipt();
