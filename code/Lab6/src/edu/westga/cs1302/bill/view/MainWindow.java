@@ -1,7 +1,6 @@
 package edu.westga.cs1302.bill.view;
 
 import java.io.IOException;
-import java.util.Collections;
 import edu.westga.cs1302.bill.model.AscendingComparator;
 import edu.westga.cs1302.bill.model.Bill;
 import edu.westga.cs1302.bill.model.BillItem;
@@ -102,7 +101,7 @@ public class MainWindow {
 	void sortByDescending(ActionEvent event) {
 		DescendingComparator comp = new DescendingComparator();
 
-		Collections.sort(this.bill.getItemsList(), comp);
+		this.bill.sort(comp);
 		this.updateReceipt();
 	}
 
@@ -110,7 +109,7 @@ public class MainWindow {
 	void sortbByAscending(ActionEvent event) {
 		AscendingComparator comp = new AscendingComparator();
 
-		Collections.sort(this.bill.getItemsList(), comp);
+		this.bill.sort(comp);
 		this.updateReceipt();
 
 	}
