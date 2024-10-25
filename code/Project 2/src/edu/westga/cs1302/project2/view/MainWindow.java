@@ -1,9 +1,16 @@
 package edu.westga.cs1302.project2.view;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import edu.westga.cs1302.project2.model.Ingredient;
+import edu.westga.cs1302.project2.model.NameComparator;
+import edu.westga.cs1302.project2.model.TypeComparator;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -21,6 +28,10 @@ public class MainWindow {
 	private ListView<Ingredient> ingredientsList;
 	@FXML
 	private TextField ingredientName;
+	@FXML
+	private ComboBox<Comparator<Ingredient>> sortComboBox;
+	@FXML
+	private Button sortButton;
 
 	@FXML
 	void addIngredient(ActionEvent event) {
@@ -45,6 +56,26 @@ public class MainWindow {
 		}
 	}
 
+	private void populateCompareComboBox() {
+		NameComparator name = new NameComparator();
+		TypeComparator type = new TypeComparator();
+
+		this.sortComboBox.getItems().add(name);
+		this.sortComboBox.getItems().add(type);
+		this.sortComboBox.getSelectionModel().select(0);
+	}
+
+	@FXML
+	void sortIngredientsList(ActionEvent event) {
+
+		Comparator<Ingredient> selectedComparator = (Comparator<Ingredient>) this.sortComboBox.getSelectionModel()
+				.getSelectedItem();
+
+		Collections.sort(this.ingredientsList.getItems(), selectedComparator);
+
+		this.ingredientsList.setItems(FXCollections.observableArrayList(this.ingredientsList.getItems()));
+	}
+
 	@FXML
 	void initialize() {
 		this.ingredientType.getItems().add("Vegetable");
@@ -52,6 +83,8 @@ public class MainWindow {
 		this.ingredientType.getItems().add("Bread");
 		this.ingredientType.getItems().add("Fruit");
 		this.ingredientType.getItems().add("Spice");
+
+		this.populateCompareComboBox();
 
 	}
 }

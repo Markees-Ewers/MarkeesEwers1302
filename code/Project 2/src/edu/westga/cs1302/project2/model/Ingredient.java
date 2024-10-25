@@ -30,7 +30,7 @@ public class Ingredient {
 		this.name = name;
 		this.type = type;
 	}
-
+	
 	/**
 	 * Return the name of the ingredient
 	 * 
