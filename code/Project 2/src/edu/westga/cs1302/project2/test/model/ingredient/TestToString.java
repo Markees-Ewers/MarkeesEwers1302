@@ -11,9 +11,9 @@ class TestToString {
 	@Test
 	void test() {
 		Ingredient ingredient = new Ingredient("name", "type");
-		
+
 		String result = ingredient.toString();
-		
+
 		assertEquals("name-type", result, "checking result of the Ingredient::toString()");
 	}
 
