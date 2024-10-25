@@ -23,6 +23,12 @@ import javafx.scene.control.TextField;
  */
 public class MainWindow {
 	@FXML
+    private Button addRecipeButton;
+	@FXML
+	private TextField recipeTextField;
+	@FXML
+	private Button bringButton;
+	@FXML
 	private ComboBox<String> ingredientType;
 	@FXML
 	private ListView<Ingredient> ingredientsList;
@@ -32,6 +38,11 @@ public class MainWindow {
 	private ComboBox<Comparator<Ingredient>> sortComboBox;
 	@FXML
 	private Button sortButton;
+
+	@FXML
+	void bringIngredients(ActionEvent event) {
+
+	}
 
 	@FXML
 	void addIngredient(ActionEvent event) {
@@ -77,6 +88,11 @@ public class MainWindow {
 
 		this.ingredientsList.setItems(FXCollections.observableArrayList(this.ingredientsList.getItems()));
 	}
+	
+	@FXML
+    void addRecipe(ActionEvent event) {
+
+    }
 
 	@FXML
 	void initialize() {
