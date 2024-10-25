@@ -40,6 +40,7 @@ public class MainWindow {
 					.add(new Ingredient(this.ingredientName.getText(), this.ingredientType.getValue()));
 			this.ingredientName.clear();
 			this.ingredientType.getSelectionModel().clearSelection();
+			this.sortIngredientsList(event);
 		} catch (IllegalArgumentException error) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText("Unable to add ingredient");
@@ -53,6 +54,7 @@ public class MainWindow {
 		Ingredient selectedIngredient = this.ingredientsList.getSelectionModel().getSelectedItem();
 		if (selectedIngredient != null) {
 			this.ingredientsList.getItems().remove(selectedIngredient);
+			this.sortIngredientsList(event);
 		}
 	}
 
