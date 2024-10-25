@@ -5,8 +5,10 @@ import java.util.Comparator;
 
 import edu.westga.cs1302.project2.model.Ingredient;
 import edu.westga.cs1302.project2.model.NameComparator;
+import edu.westga.cs1302.project2.model.Recipe;
 import edu.westga.cs1302.project2.model.TypeComparator;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -23,7 +25,7 @@ import javafx.scene.control.TextField;
  */
 public class MainWindow {
 	@FXML
-    private Button addRecipeButton;
+	private Button addRecipeButton;
 	@FXML
 	private TextField recipeTextField;
 	@FXML
@@ -38,10 +40,25 @@ public class MainWindow {
 	private ComboBox<Comparator<Ingredient>> sortComboBox;
 	@FXML
 	private Button sortButton;
+	@FXML
+	private ListView<Ingredient> recipeListView;
 
 	@FXML
 	void bringIngredients(ActionEvent event) {
 
+		Ingredient item = this.ingredientsList.getSelectionModel().getSelectedItem();
+		try {
+			if (item != null) {
+				this.recipeListView.getItems().add(item);
+			} else {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException ex) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Unable to add ingredient");
+			alert.setContentText("Must select item form ingredients list");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -88,11 +105,11 @@ public class MainWindow {
 
 		this.ingredientsList.setItems(FXCollections.observableArrayList(this.ingredientsList.getItems()));
 	}
-	
-	@FXML
-    void addRecipe(ActionEvent event) {
 
-    }
+	@FXML
+	void addRecipe(ActionEvent event) {
+
+	}
 
 	@FXML
 	void initialize() {
