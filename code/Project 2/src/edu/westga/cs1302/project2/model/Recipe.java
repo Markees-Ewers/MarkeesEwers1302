@@ -16,12 +16,15 @@ public class Recipe {
 
 	/**
 	 * Instantiates a new recipe.
-	 *
+	 *@param ingredients to be added
 	 * @param name the name
 	 */
-	public Recipe(String name) {
+	public Recipe(String name, ArrayList<Ingredient> ingredients) {
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
 		this.name = name;
-		this.ingredients = new ArrayList<Ingredient>();
+		this.ingredients = ingredients;
 	}
 
 	/**
@@ -67,6 +70,10 @@ public class Recipe {
 	 */
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = new ArrayList<>(ingredients);
+	}
+	@Override
+	public String toString() {
+		return this.getName();
 	}
 
 }

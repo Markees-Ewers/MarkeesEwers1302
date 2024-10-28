@@ -1,5 +1,6 @@
 package edu.westga.cs1302.project2.view;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -8,7 +9,7 @@ import edu.westga.cs1302.project2.model.NameComparator;
 import edu.westga.cs1302.project2.model.Recipe;
 import edu.westga.cs1302.project2.model.TypeComparator;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -42,6 +43,8 @@ public class MainWindow {
 	private Button sortButton;
 	@FXML
 	private ListView<Ingredient> recipeListView;
+	@FXML
+	private ListView<Recipe> recipeBook;
 
 	@FXML
 	void bringIngredients(ActionEvent event) {
@@ -55,7 +58,7 @@ public class MainWindow {
 			}
 		} catch (NullPointerException ex) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Unable to add ingredient");
+			alert.setHeaderText("Unable to Bring ingredient to Recipe");
 			alert.setContentText("Must select item form ingredients list");
 			alert.showAndWait();
 		}
@@ -109,6 +112,32 @@ public class MainWindow {
 	@FXML
 	void addRecipe(ActionEvent event) {
 
+		try {
+			// Ensure the name field is not empty
+			String name = this.recipeTextField.getText();
+			if (name == null || name.trim().isEmpty()) {
+				throw new IllegalArgumentException("Recipe name cannot be empty.");
+			}
+
+			// Ensure there are ingredients to add
+			if (this.recipeListView.getItems().isEmpty()) {
+				throw new IllegalArgumentException("Recipe must have at least one ingredient.");
+			}
+
+			// Get ingredients from recipeListView and create a new Recipe
+			ArrayList<Ingredient> ingredients = new ArrayList<>(this.recipeListView.getItems());
+			Recipe recipe = new Recipe(name, ingredients);
+
+			// Add recipe to recipeBook (assuming recipeBook is a ListView<Recipe>)
+			this.recipeBook.getItems().add(recipe);
+
+		} catch (IllegalArgumentException ex) {
+			// Display an alert with a relevant error message
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Unable to add recipe");
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
