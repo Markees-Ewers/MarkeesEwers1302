@@ -71,6 +71,7 @@ public class Recipe {
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = new ArrayList<>(ingredients);
 	}
+	
 	@Override
 	public String toString() {
 		return this.getName();

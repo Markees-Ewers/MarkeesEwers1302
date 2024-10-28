@@ -38,6 +38,4 @@ public class RecipeBook  {
 	public void setRecipeBook(ArrayList<Recipe> recipeBook) {
 		this.recipeBook = recipeBook;
 	}
-	
-
 }

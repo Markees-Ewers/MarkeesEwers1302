@@ -1,5 +1,6 @@
 package edu.westga.cs1302.project2.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -7,6 +8,8 @@ import java.util.Comparator;
 import edu.westga.cs1302.project2.model.Ingredient;
 import edu.westga.cs1302.project2.model.NameComparator;
 import edu.westga.cs1302.project2.model.Recipe;
+import edu.westga.cs1302.project2.model.RecipeFileAppender;
+
 import edu.westga.cs1302.project2.model.TypeComparator;
 import javafx.collections.FXCollections;
 
@@ -72,6 +75,7 @@ public class MainWindow {
 			this.ingredientName.clear();
 			this.ingredientType.getSelectionModel().clearSelection();
 			this.sortIngredientsList(event);
+			
 		} catch (IllegalArgumentException error) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText("Unable to add ingredient");
@@ -130,6 +134,7 @@ public class MainWindow {
 
 			// Add recipe to recipeBook (assuming recipeBook is a ListView<Recipe>)
 			this.recipeBook.getItems().add(recipe);
+			System.out.println("recipe saved");
 
 		} catch (IllegalArgumentException ex) {
 			// Display an alert with a relevant error message
@@ -137,6 +142,20 @@ public class MainWindow {
 			alert.setHeaderText("Unable to add recipe");
 			alert.setContentText(ex.getMessage());
 			alert.showAndWait();
+		}
+	}
+	
+	void saveRecipe() {
+		for (Recipe curr : this.recipeBook.getItems()) {
+			try {
+				RecipeFileAppender.appendRecipe(curr);
+				System.out.println("recipe saved");
+			} catch (IOException error) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText("Unable to add save Recipe to Book");
+				alert.setContentText(error.getMessage());
+				alert.showAndWait();
+			}
 		}
 	}
 
