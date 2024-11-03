@@ -29,14 +29,13 @@ public class testLoadRecipes {
 	@Test
 	public void testFindsTwoRecipe() throws IOException {
 		// Arrange
-		Ingredient target = new Ingredient("Flour", "Batter"); // Adjusted to match your format
+		Ingredient target = new Ingredient("Flour", "Batter");
 		ArrayList<Ingredient> ingredients = new ArrayList<>();
-		ingredients.add(target); // Assuming you want to add the ingredient "Flour" as the target
+		ingredients.add(target);
 		Recipe recipe = new Recipe("Chocolate Cake", ingredients);
 		Recipe recipe2 = new Recipe("IceCream", ingredients);
 
-		// Write the recipe to a file
-		RecipeFileManager.writeRecipe(recipe); // Ensure you pass the testFile here
+		RecipeFileManager.writeRecipe(recipe);
 		RecipeFileManager.appendRecipe(recipe2);
 		List<Recipe> expected = RecipeFileLoader.loadRecipes();
 		assertEquals(expected.size(), 2);
@@ -44,14 +43,13 @@ public class testLoadRecipes {
 
 	@Test
 	public void testFindsOneRecipe() throws IOException {
-		// Arrange
-		Ingredient target = new Ingredient("Flour", "Batter"); // Adjusted to match your format
+
+		Ingredient target = new Ingredient("Flour", "Batter");
 		ArrayList<Ingredient> ingredients = new ArrayList<>();
-		ingredients.add(target); // Assuming you want to add the ingredient "Flour" as the target
+		ingredients.add(target);
 		Recipe recipe = new Recipe("Chocolate Cake", ingredients);
 
-		// Write the recipe to a file
-		RecipeFileManager.writeRecipe(recipe); // Ensure you pass the testFile here
+		RecipeFileManager.writeRecipe(recipe);
 
 		List<Recipe> expected = RecipeFileLoader.loadRecipes();
 		assertEquals(expected.size(), 1);
@@ -59,16 +57,15 @@ public class testLoadRecipes {
 
 	@Test
 	public void testFindsThreeRecipe() throws IOException {
-		// Arrange
-		Ingredient target = new Ingredient("Flour", "Batter"); // Adjusted to match your format
+
+		Ingredient target = new Ingredient("Flour", "Batter");
 		ArrayList<Ingredient> ingredients = new ArrayList<>();
-		ingredients.add(target); // Assuming you want to add the ingredient "Flour" as the target
+		ingredients.add(target);
 		Recipe recipe = new Recipe("Chocolate Cake", ingredients);
 		Recipe recipe2 = new Recipe("IceCream", ingredients);
 		Recipe recipe3 = new Recipe("fislh", ingredients);
 
-		// Write the recipe to a file
-		RecipeFileManager.writeRecipe(recipe); // Ensure you pass the testFile here
+		RecipeFileManager.writeRecipe(recipe);
 		RecipeFileManager.appendRecipe(recipe2);
 		RecipeFileManager.appendRecipe(recipe3);
 		List<Recipe> expected = RecipeFileLoader.loadRecipes();

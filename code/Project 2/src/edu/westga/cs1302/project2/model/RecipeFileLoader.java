@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// TODO: Auto-generated Javadoc
 /**
  * the class for loading recipes to a file.
  *
@@ -25,9 +24,8 @@ public class RecipeFileLoader {
 	 */
 	public static List<Recipe> recipesWithIngredient(Ingredient targetIngredient) {
 		List<Recipe> recipes = new ArrayList<>();
-		System.out.println(1);
 		File file = new File("data/recipes.txt");
-		// Check if the file exists and is not empty
+
 		if (!file.exists() || file.length() == 0) {
 			return recipes;
 		}
@@ -38,8 +36,6 @@ public class RecipeFileLoader {
 				String recipeName = null;
 				boolean isTarget = false;
 
-				System.out.println(3);
-				// If the line does not contain a dash, it's the recipe name
 				if (!line.contains("-")) {
 					recipeName = line;
 					line = scnr.nextLine();
@@ -67,10 +63,8 @@ public class RecipeFileLoader {
 
 			}
 		} catch (FileNotFoundException ex) {
-			System.out.println(ex.getMessage());
 			return recipes;
 		}
-		System.out.println(12);
 		return recipes;
 
 	}
@@ -82,7 +76,6 @@ public class RecipeFileLoader {
 	 */
 	public static List<Recipe> loadRecipes() {
 		List<Recipe> recipes = new ArrayList<>();
-		System.out.println(1);
 		File file = new File("data/recipes.txt");
 		// Check if the file exists and is not empty
 		if (!file.exists() || file.length() == 0) {

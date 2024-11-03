@@ -23,14 +23,11 @@ public class TestUtilityRecipe {
 
 		Recipe testRecipe = new Recipe("Chocolate Cake", ingredients);
 
-		// Expected output string
 		String expectedOutput = "Chocolate Cake" + System.lineSeparator() + "Flour-Dry, " + "Sugar-Dry, "
 				+ "Butter-Wet, " + "Eggs-Wet, " + System.lineSeparator();
 
-		// Call the method and get the actual output
 		String result = UtilityRecipe.recipeToString(testRecipe);
 
-		// Assert that the actual output matches the expected output
 		assertEquals(expectedOutput, result, "The recipeToString method did not return the expected output.");
 	}
 }

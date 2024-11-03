@@ -143,7 +143,7 @@ public class MainWindow {
 		try {
 
 			String name = this.recipeTextField.getText();
-			System.out.println(name);
+			
 
 			if (name.contains("-")) {
 				throw new IllegalArgumentException("Recipe name cannot have a" + "(-) within the name");
@@ -216,7 +216,6 @@ public class MainWindow {
 			alert.setHeaderText("Unable to show recipes");
 			alert.setContentText("Recipe File has been currupted, a new recipe book will be made.");
 
-			// Declare and check if the file exists
 			File file = new File("data/recipes.txt");
 			if (file.exists()) {
 				file.delete();

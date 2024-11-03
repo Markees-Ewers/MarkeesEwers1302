@@ -1,14 +1,2 @@
-ab
-a-Vegetable, b-Meat, 
-asd
-sd-Vegetable, 
-as
-as-Vegetable, 
 sdf
-as-Vegetable, 
-asdff
-as-Vegetable, as-Vegetable, as-Vegetable, asdfasdfasdf-Bread, asdfasdfasdf-Bread, as-Vegetable, as-Vegetable, 
-this
-gfdgfgdzzsd-Vegetable, 
-sdfs
-gfdgfgdzzsd-Vegetable, 
+ddfs-Vegetable, 

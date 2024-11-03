@@ -82,11 +82,10 @@ class RecipeFileManagerTest {
 
 	@Test
 	void testRecipeWithNullNameThrowsException() {
-		// Arrange
+
 		ArrayList<Ingredient> ingredients = new ArrayList<>();
 		ingredients.add(new Ingredient("Sugar", "sweetener"));
 
-		// Act and Assert
 		assertThrows(IllegalArgumentException.class, () -> new Recipe(null, ingredients),
 				" IllegalArgumentException for null recipe name");
 	}

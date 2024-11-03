@@ -43,7 +43,6 @@ public class RecipeFileManager {
 	 */
 	public static void appendRecipe(Recipe recipe) throws IOException {
 		File file = new File(FILE_PATH);
-		System.out.println("file - " + file.exists());
 		String name = recipe.getName();
 		if (!file.exists()) {
 			file.getParentFile().mkdirs();
