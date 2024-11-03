@@ -8,8 +8,8 @@ import java.util.Comparator;
 import edu.westga.cs1302.project2.model.Ingredient;
 import edu.westga.cs1302.project2.model.NameComparator;
 import edu.westga.cs1302.project2.model.Recipe;
-import edu.westga.cs1302.project2.model.RecipeFileAppender;
 
+import edu.westga.cs1302.project2.model.RecipeFileManager;
 import edu.westga.cs1302.project2.model.TypeComparator;
 import javafx.collections.FXCollections;
 
@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -47,7 +48,9 @@ public class MainWindow {
 	@FXML
 	private ListView<Ingredient> recipeListView;
 	@FXML
-	private ListView<Recipe> recipeBook;
+	private TextArea recipeBook;
+	@FXML
+	private Button showRecipeButton;
 
 	@FXML
 	void bringIngredients(ActionEvent event) {
@@ -75,7 +78,7 @@ public class MainWindow {
 			this.ingredientName.clear();
 			this.ingredientType.getSelectionModel().clearSelection();
 			this.sortIngredientsList(event);
-			
+
 		} catch (IllegalArgumentException error) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText("Unable to add ingredient");
@@ -133,9 +136,19 @@ public class MainWindow {
 			Recipe recipe = new Recipe(name, ingredients);
 
 			// Add recipe to recipeBook (assuming recipeBook is a ListView<Recipe>)
-			this.recipeBook.getItems().add(recipe);
-			System.out.println("recipe saved");
-
+			try {
+				RecipeFileManager.writeRecipe(recipe);
+				System.out.println("recipe saved");
+			} catch (IOException ex) {
+				try {
+					RecipeFileManager.appendRecipe(recipe);
+				} catch (IOException ec) {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setHeaderText("Unable to add recipe");
+					alert.setContentText(ec.getMessage());
+					alert.showAndWait();
+				}
+			}
 		} catch (IllegalArgumentException ex) {
 			// Display an alert with a relevant error message
 			Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -144,19 +157,10 @@ public class MainWindow {
 			alert.showAndWait();
 		}
 	}
-	
-	void saveRecipe() {
-		for (Recipe curr : this.recipeBook.getItems()) {
-			try {
-				RecipeFileAppender.appendRecipe(curr);
-				System.out.println("recipe saved");
-			} catch (IOException error) {
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText("Unable to add save Recipe to Book");
-				alert.setContentText(error.getMessage());
-				alert.showAndWait();
-			}
-		}
+
+	@FXML
+	void showRecipe(ActionEvent event) {
+
 	}
 
 	@FXML

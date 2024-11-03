@@ -99,6 +99,20 @@ public class NameComparatorTest {
 		
 		assertTrue(result < 0, "A long string of 'A's should be before a long string of 'B's");
 	}
+	@Test
+	public void testCompareShouldHandleVeryLongNameWithNoChanges() {
+		
+		Ingredient ingredient1 = new Ingredient("A".repeat(1000), "AnyType");
+		Ingredient ingredient2 = new Ingredient("A".repeat(999) + "B", "AnyType");
+		NameComparator nameComparator = new NameComparator();
+
+	
+		int result = nameComparator.compare(ingredient1, ingredient2);
+
+		
+		assertTrue(result < 0, "A long string of 'A's should be before a long string of 'A's with a b at the end");
+	}
+
 
 	@Test
 	public void testCompareShouldHandleNumbersInNames() {
