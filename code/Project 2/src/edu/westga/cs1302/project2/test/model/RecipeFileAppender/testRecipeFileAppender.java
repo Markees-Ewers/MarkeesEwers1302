@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs1302.project2.model.Ingredient;
@@ -15,7 +16,14 @@ import edu.westga.cs1302.project2.model.Recipe;
 import edu.westga.cs1302.project2.model.RecipeFileManager;
 
 class testRecipeFileAppender {
-	private final File testFile = new File("data/recipes.txt");
+	private final File testFile = new File("data/Recipes.txt");
+
+	@AfterEach
+	void tearDown() {
+		if (testFile.exists()) {
+			testFile.delete();
+		}
+	}
 
 	@Test
 	void testAppendSameRecipe() throws IOException {

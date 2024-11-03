@@ -16,7 +16,7 @@ import edu.westga.cs1302.project2.model.RecipeFileLoader;
 import edu.westga.cs1302.project2.model.RecipeFileManager;
 
 public class testLoadRecipes {
-	private File testFile = new File("data/recipes.txt");
+	private File testFile = new File("data/Recipes.txt");
 
 	@AfterEach
 	void tearDown() {

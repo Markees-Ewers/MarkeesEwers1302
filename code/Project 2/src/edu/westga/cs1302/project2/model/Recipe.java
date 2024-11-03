@@ -21,7 +21,7 @@ public class Recipe {
 	 */
 	public Recipe(String name, ArrayList<Ingredient> ingredients) {
 		if (name == null || name.isEmpty()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Name cannot be empty or null");
 		}
 		this.name = name;
 		this.ingredients = ingredients;

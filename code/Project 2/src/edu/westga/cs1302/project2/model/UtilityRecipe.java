@@ -23,10 +23,10 @@ public class UtilityRecipe {
 		recipeString += recipe.getName() + System.lineSeparator();
 
 		for (Ingredient curr : recipe.getIngredients()) {
-			recipeString += curr.getName() + "-" + curr.getType() + ", " + System.lineSeparator();
+			recipeString += curr.getName() + "-" + curr.getType() + ", ";
 
 		}
-		return recipeString;
+		return recipeString + System.lineSeparator();
 	}
 
 	/**

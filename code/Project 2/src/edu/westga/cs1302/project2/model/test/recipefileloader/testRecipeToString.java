@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs1302.project2.model.Ingredient;
@@ -16,7 +17,18 @@ import edu.westga.cs1302.project2.model.RecipeFileLoader;
 import edu.westga.cs1302.project2.model.RecipeFileManager;
 
 public class testRecipeToString {
-	private final File testFile = new File("data/recipes.txt");
+	private final File testFile = new File("data/Recipes.txt");
+
+	@BeforeEach
+	void setUp() throws IOException {
+		// Ensure the directory exists
+		testFile.getParentFile().mkdirs();
+
+		// Create the file if it doesn't exist and write initial content if needed
+		if (!testFile.exists()) {
+			testFile.createNewFile();
+		}
+	}
 
 	@Test
 	public void testFindsOneRecipe() throws IOException {
@@ -34,7 +46,7 @@ public class testRecipeToString {
 		try (Scanner scnr = new Scanner(this.testFile)) {
 			System.out.println(scnr.nextLine());
 			while (scnr.hasNextLine()) {
-				System.out.println("printing fille ingfo");
+				System.out.println("printing fille inffo");
 				String line = scnr.nextLine();
 
 				System.out.println(line);

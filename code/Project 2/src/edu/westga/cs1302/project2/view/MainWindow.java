@@ -76,6 +76,14 @@ public class MainWindow {
 	@FXML
 	void addIngredient(ActionEvent event) {
 		try {
+			if (this.ingredientName.getText().contains(",")) {
+				throw new IllegalArgumentException("cannot create a name with a (,)");
+
+			}
+			if (this.ingredientName.getText().contains("-")) {
+				throw new IllegalArgumentException("cannot create a name with a (-)");
+
+			}
 			this.ingredientsList.getItems()
 					.add(new Ingredient(this.ingredientName.getText(), this.ingredientType.getValue()));
 			this.ingredientName.clear();
@@ -135,11 +143,13 @@ public class MainWindow {
 		try {
 
 			String name = this.recipeTextField.getText();
-			if (name == null || name.trim().isEmpty()) {
-				throw new IllegalArgumentException("Recipe name cannot be empty.");
-			}
+			System.out.println(name);
+
 			if (name.contains("-")) {
 				throw new IllegalArgumentException("Recipe name cannot have a" + "(-) within the name");
+			}
+			if (name.contains(",")) {
+				throw new IllegalArgumentException("Recipe name cannot have a" + "(,) within the name");
 			}
 
 			if (this.recipeListView.getItems().isEmpty()) {
@@ -150,21 +160,27 @@ public class MainWindow {
 			Recipe recipe = new Recipe(name, ingredients);
 
 			RecipeFileManager.appendRecipe(recipe);
-			System.out.println("recipe saved");
+
 			this.populateRecipeBook();
-			System.out.println("recipe saved1");
+
 			this.clearRecipeCreator();
-			System.out.println("recipe saved3");
+
 		} catch (IllegalStateException ex) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText("Unable to add recipe");
 			alert.setContentText("recipe already exist in Recipe-Book file");
+
 			alert.showAndWait();
 		} catch (IOException es) {
-			// TODO Auto-generated catch block
-			es.printStackTrace();
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Unable to add recipe");
+			alert.setContentText(es.getMessage());
+			alert.showAndWait();
 		} catch (IllegalArgumentException ex) {
-
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Unable to add recipe");
+			alert.setContentText(ex.getMessage());
+			alert.showAndWait();
 		}
 	}
 

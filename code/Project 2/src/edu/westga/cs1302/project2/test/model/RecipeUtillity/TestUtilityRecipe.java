@@ -11,8 +11,6 @@ import edu.westga.cs1302.project2.model.Recipe;
 import edu.westga.cs1302.project2.model.UtilityRecipe;
 
 public class TestUtilityRecipe {
-	
-
 
 	@Test
 	public void testRecipeToString() {
@@ -26,9 +24,8 @@ public class TestUtilityRecipe {
 		Recipe testRecipe = new Recipe("Chocolate Cake", ingredients);
 
 		// Expected output string
-		String expectedOutput = "Chocolate Cake" + System.lineSeparator() + "Flour-Dry, " + System.lineSeparator()
-				+ "Sugar-Dry, " + System.lineSeparator() + "Butter-Wet, " + System.lineSeparator() + "Eggs-Wet, "
-				+ System.lineSeparator();
+		String expectedOutput = "Chocolate Cake" + System.lineSeparator() + "Flour-Dry, " + "Sugar-Dry, "
+				+ "Butter-Wet, " + "Eggs-Wet, " + System.lineSeparator();
 
 		// Call the method and get the actual output
 		String result = UtilityRecipe.recipeToString(testRecipe);

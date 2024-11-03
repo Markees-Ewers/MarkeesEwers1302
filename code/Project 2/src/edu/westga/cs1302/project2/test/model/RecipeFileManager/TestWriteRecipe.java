@@ -73,8 +73,8 @@ class RecipeFileManagerTest {
 
 				assertTrue(scnr.hasNextLine());
 				assertEquals(expectedRecipeNameLine.trim(), scnr.nextLine().trim());
-
-				assertFalse(scnr.hasNextLine());
+				String line = scnr.nextLine();
+				assertTrue(line.isEmpty());
 
 			}
 		}
