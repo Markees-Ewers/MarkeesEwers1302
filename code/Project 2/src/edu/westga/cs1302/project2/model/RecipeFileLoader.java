@@ -50,10 +50,12 @@ public class RecipeFileLoader {
 					for (int is = 0; is < ingredients.length; is++) {
 						String[] parts = ingredients[is].split("-");
 						String ingName = parts[0].trim();
-						if (ingName.trim().equals(targetIngredient.getName().trim())) {
+						String ingType = parts[1].trim();
+						if (ingName.trim().equals(targetIngredient.getName().trim())
+								&& ingType.trim().equals(targetIngredient.getType().trim())) {
 							isTarget = true;
 						}
-						String ingType = parts[1].trim();
+
 						Ingredient ing = new Ingredient(ingName, ingType);
 						fullIng.add(ing);
 					}

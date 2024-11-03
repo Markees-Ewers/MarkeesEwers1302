@@ -1,16 +1,19 @@
 package edu.westga.cs1302.project2.view;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import edu.westga.cs1302.project2.model.Ingredient;
 import edu.westga.cs1302.project2.model.NameComparator;
 import edu.westga.cs1302.project2.model.Recipe;
-
+import edu.westga.cs1302.project2.model.RecipeFileLoader;
 import edu.westga.cs1302.project2.model.RecipeFileManager;
 import edu.westga.cs1302.project2.model.TypeComparator;
+import edu.westga.cs1302.project2.model.UtilityRecipe;
 import javafx.collections.FXCollections;
 
 import javafx.event.ActionEvent;
@@ -116,38 +119,64 @@ public class MainWindow {
 		this.ingredientsList.setItems(FXCollections.observableArrayList(this.ingredientsList.getItems()));
 	}
 
+	private void populateRecipeBook() {
+		String recipe = UtilityRecipe.recipeListToString(RecipeFileLoader.loadRecipes());
+		this.recipeBook.setText(recipe);
+	}
+
+	private void clearRecipeCreator() {
+		this.recipeTextField.clear();
+		this.recipeListView.getItems().clear();
+	}
+
 	@FXML
 	void addRecipe(ActionEvent event) {
 
 		try {
-			// Ensure the name field is not empty
+
 			String name = this.recipeTextField.getText();
 			if (name == null || name.trim().isEmpty()) {
 				throw new IllegalArgumentException("Recipe name cannot be empty.");
 			}
 
-			// Ensure there are ingredients to add
 			if (this.recipeListView.getItems().isEmpty()) {
 				throw new IllegalArgumentException("Recipe must have at least one ingredient.");
 			}
 
-			// Get ingredients from recipeListView and create a new Recipe
 			ArrayList<Ingredient> ingredients = new ArrayList<>(this.recipeListView.getItems());
 			Recipe recipe = new Recipe(name, ingredients);
 
-			// Add recipe to recipeBook (assuming recipeBook is a ListView<Recipe>)
 			try {
-				RecipeFileManager.writeRecipe(recipe);
+				RecipeFileManager.appendRecipe(recipe);
 				System.out.println("recipe saved");
+				this.populateRecipeBook();
+				this.clearRecipeCreator();
 			} catch (IOException ex) {
 				try {
 					RecipeFileManager.appendRecipe(recipe);
+					this.populateRecipeBook();
+					this.clearRecipeCreator();
 				} catch (IOException ec) {
 					Alert alert = new Alert(Alert.AlertType.ERROR);
+					System.out.println(ec.getMessage());
 					alert.setHeaderText("Unable to add recipe");
 					alert.setContentText(ec.getMessage());
 					alert.showAndWait();
+				} catch (IllegalStateException es) {
+
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					System.out.println(es.getMessage());
+					alert.setHeaderText("Unable to add recipe");
+					alert.setContentText("recipe already exists in file");
+					alert.showAndWait();
 				}
+			} catch (IllegalStateException es) {
+
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				System.out.println(es.getMessage());
+				alert.setHeaderText("Unable to add recipe");
+				alert.setContentText("recipe already exists in file");
+				alert.showAndWait();
 			}
 		} catch (IllegalArgumentException ex) {
 			// Display an alert with a relevant error message
@@ -160,6 +189,17 @@ public class MainWindow {
 
 	@FXML
 	void showRecipe(ActionEvent event) {
+		if (this.ingredientsList.getSelectionModel().getSelectedItem() == null) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Unable to add show recipes");
+			alert.setContentText("must selected ingredient");
+			alert.showAndWait();
+			return;
+		}
+		Ingredient ing = this.ingredientsList.getSelectionModel().getSelectedItem();
+		List<Recipe> matching = (RecipeFileLoader.recipesWithIngredient(ing));
+
+		this.recipeBook.setText(UtilityRecipe.recipeListToString(matching));
 
 	}
 
@@ -170,6 +210,9 @@ public class MainWindow {
 		this.ingredientType.getItems().add("Bread");
 		this.ingredientType.getItems().add("Fruit");
 		this.ingredientType.getItems().add("Spice");
+
+		this.recipeBook.setEditable(false);
+		this.populateRecipeBook();
 
 		this.populateCompareComboBox();
 
