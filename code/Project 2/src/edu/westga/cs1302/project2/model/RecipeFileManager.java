@@ -37,13 +37,19 @@ public class RecipeFileManager {
 	 * Appends a recipe to the end of the file if it does not already exist.
 	 *
 	 * @param recipe the recipe to append
-	 * @throws IOException if there is an I/O error or the file cannot be
+	 * @throws IOException           if there is an I/O error or the file cannot be
 	 *                               created
 	 * @throws IllegalStateException if a recipe with the same name already exists
 	 */
 	public static void appendRecipe(Recipe recipe) throws IOException {
 		File file = new File(FILE_PATH);
+		System.out.println("file - " + file.exists());
 		String name = recipe.getName();
+		if (!file.exists()) {
+			file.getParentFile().mkdirs();
+			file.createNewFile();
+		}
+
 		try (Scanner scnr = new Scanner(file)) {
 			while (scnr.hasNextLine()) {
 				String line = scnr.nextLine();

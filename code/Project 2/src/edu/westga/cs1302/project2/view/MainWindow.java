@@ -1,7 +1,7 @@
 package edu.westga.cs1302.project2.view;
 
+import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -138,6 +138,9 @@ public class MainWindow {
 			if (name == null || name.trim().isEmpty()) {
 				throw new IllegalArgumentException("Recipe name cannot be empty.");
 			}
+			if (name.contains("-")) {
+				throw new IllegalArgumentException("Recipe name cannot have a" + "(-) within the name");
+			}
 
 			if (this.recipeListView.getItems().isEmpty()) {
 				throw new IllegalArgumentException("Recipe must have at least one ingredient.");
@@ -146,44 +149,22 @@ public class MainWindow {
 			ArrayList<Ingredient> ingredients = new ArrayList<>(this.recipeListView.getItems());
 			Recipe recipe = new Recipe(name, ingredients);
 
-			try {
-				RecipeFileManager.appendRecipe(recipe);
-				System.out.println("recipe saved");
-				this.populateRecipeBook();
-				this.clearRecipeCreator();
-			} catch (IOException ex) {
-				try {
-					RecipeFileManager.appendRecipe(recipe);
-					this.populateRecipeBook();
-					this.clearRecipeCreator();
-				} catch (IOException ec) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					System.out.println(ec.getMessage());
-					alert.setHeaderText("Unable to add recipe");
-					alert.setContentText(ec.getMessage());
-					alert.showAndWait();
-				} catch (IllegalStateException es) {
-
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					System.out.println(es.getMessage());
-					alert.setHeaderText("Unable to add recipe");
-					alert.setContentText("recipe already exists in file");
-					alert.showAndWait();
-				}
-			} catch (IllegalStateException es) {
-
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				System.out.println(es.getMessage());
-				alert.setHeaderText("Unable to add recipe");
-				alert.setContentText("recipe already exists in file");
-				alert.showAndWait();
-			}
-		} catch (IllegalArgumentException ex) {
-			// Display an alert with a relevant error message
+			RecipeFileManager.appendRecipe(recipe);
+			System.out.println("recipe saved");
+			this.populateRecipeBook();
+			System.out.println("recipe saved1");
+			this.clearRecipeCreator();
+			System.out.println("recipe saved3");
+		} catch (IllegalStateException ex) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText("Unable to add recipe");
-			alert.setContentText(ex.getMessage());
+			alert.setContentText("recipe already exist in Recipe-Book file");
 			alert.showAndWait();
+		} catch (IOException es) {
+			// TODO Auto-generated catch block
+			es.printStackTrace();
+		} catch (IllegalArgumentException ex) {
+
 		}
 	}
 
@@ -191,7 +172,7 @@ public class MainWindow {
 	void showRecipe(ActionEvent event) {
 		if (this.ingredientsList.getSelectionModel().getSelectedItem() == null) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Unable to add show recipes");
+			alert.setHeaderText("Unable to show recipes");
 			alert.setContentText("must selected ingredient");
 			alert.showAndWait();
 			return;
@@ -212,7 +193,21 @@ public class MainWindow {
 		this.ingredientType.getItems().add("Spice");
 
 		this.recipeBook.setEditable(false);
-		this.populateRecipeBook();
+		try {
+			this.populateRecipeBook();
+		} catch (IllegalArgumentException ex) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText("Unable to show recipes");
+			alert.setContentText("Recipe File has been currupted, a new recipe book will be made.");
+
+			// Declare and check if the file exists
+			File file = new File("data/recipes.txt");
+			if (file.exists()) {
+				file.delete();
+			}
+
+			alert.showAndWait();
+		}
 
 		this.populateCompareComboBox();
 
