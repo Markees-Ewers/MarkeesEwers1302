@@ -1,0 +1,350 @@
+commit 7b4293b5a2ac65f34c01b5de5238ee1af9d9f2ed
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Nov 14 06:19:33 2024 -0500
+
+    added test and listView for passed passswords
+    
+    added tests and listView for passed passwords and made sure that list showed in proper order for the view
+
+commit 2e1a964ed615ad702acf3a429e9ab50008cb1b92
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Nov 14 05:05:14 2024 -0500
+
+    added InputValidation for text field
+    
+    made it so that past passWords are stored in the vm and bound to the view
+
+commit 61a85a33e56b7ec15fbe2363d6d80e64b0e304c6
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sun Nov 3 13:55:21 2024 -0500
+
+    cleaned up code
+    
+    stopped console from generating output
+
+commit 325c2f917afc391b9d8575d574473cc25d8eb138
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sun Nov 3 13:33:56 2024 -0500
+
+    final bug fix
+    
+    fixed issue where recipe creator would not allow for multiple ingredients to a recipe
+
+commit 24d6c342439a1b191735520f06fc7ed24807684a
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sun Nov 3 11:24:05 2024 -0500
+
+    connect the gui and fixed small errors
+    
+    fixed errors and  handled situations where the file was currupted
+    also added git link
+
+commit a0c1d916c624e30852c1753950d358b620b0bd6d
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sun Nov 3 03:03:10 2024 -0500
+
+    created the logic to add everything
+    
+    created the logic to add everything
+
+commit 36fc300f21d2735233cbb0f7efa614e74febbd49
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sun Nov 3 01:36:12 2024 -0500
+
+    update gui to have a text area
+    
+    updated the gui to have a text area
+
+commit c78dbfb6f89b715d19fb36967395c68fd39f566b
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Mon Oct 28 16:22:04 2024 -0400
+
+    connect GUi to busines logic
+    
+    added and created the method to save the files
+
+commit a2cf38806d9f9948b29beadd1c3a02e3107402a5
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Mon Oct 28 15:14:30 2024 -0400
+
+    added logic to save Recipes to file
+    
+    Made sure fully tested methods for appending and writing to a file
+
+commit beb237f7934ed37cafe2589bc5483f60eba52134
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Oct 25 15:27:15 2024 -0400
+
+    added abilty to transfre ingredient from ingredients list
+    
+    add ability to transfer ingredients
+
+commit b74a2e4c2fe9547801565e627e01294479c8d329
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Oct 25 14:52:28 2024 -0400
+
+    added gui to the window
+    
+    made sure that gui has necesities so that it can be modled later
+
+commit 21c6f2097cb07332631d073323a18b4a3fb90ed4
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Oct 25 14:25:27 2024 -0400
+
+    made sure that list is sorted after adding or deleting
+    
+    made the feature so that deleting and adding sorts the list after the action has been done
+
+commit c587e0a03855360f254692a8018ec08efd1b90da
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Oct 25 14:19:39 2024 -0400
+
+    added gui to button to launch sorting
+    
+    now users are able to sort comparator list
+
+commit 87bb03fb2c702cc84777f7e71c0f931438fe509b
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Oct 24 20:05:01 2024 -0400
+
+    added comparators for name and type
+    
+    added comparators for name and type to sort later by gui
+
+commit 59d60236de6faca7b05e15e62b198681e487f11e
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Oct 24 18:10:50 2024 -0400
+
+    setup initial files to start working
+    
+    added the initial files to the workspace
+
+commit 131f4754c82ae15f080bea63bcdc3d0d17ce03c0
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Oct 24 17:55:13 2024 -0400
+
+    added starter project file
+    
+    made sure the project file was added
+
+commit 3a71c7f25ca6172f8b47ebac7f9d17279248ad5d
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sat Oct 19 02:02:03 2024 -0400
+
+    made sure git was working
+    
+    made sure git had a good repository
+
+commit a0f9b074b90434c43618f08395aa686a2d1245d3
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Tue Oct 15 22:04:42 2024 -0400
+
+    added better information hiding
+    
+    hid the real identity of the collection with Bill
+
+commit cd7ea0c2d80256e0c02fc71cc8a4a70741a0e89f
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Mon Oct 14 04:29:51 2024 -0400
+
+    added repositoryLink
+    
+    made sure link was in for grading
+
+commit f5d6a114fc50aad727ecf9ae83d709576a62f79a
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Mon Oct 14 04:21:58 2024 -0400
+
+    created order buttons and functionality
+    
+    made buttons so that the bill can be sorted by scending or descending
+
+commit d5eb2da01b3f64d9ea22ff8edf18635ab6515a58
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Sun Oct 13 22:40:10 2024 -0400
+
+    changes made to csv and tsb
+    
+    made changes so they work correctly
+
+commit 4b22cf33c060f9515319c081b2ec33f57fee49ce
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Sun Oct 13 22:35:49 2024 -0400
+
+    created sepreate classes for saving with tab and comma
+    
+    refactored better coding to make sure tab and comma speration are made in different classes
+
+commit 3f9290a643e586ee3e4bb5c13b4ceffa0398d26d
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Oct 2 21:25:18 2024 -0400
+
+    fixed checkstyle
+    
+    made checkstyle better
+
+commit 7ade853f556360692cac70c183b82e8724dfccd3
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Oct 2 21:23:49 2024 -0400
+
+    did final changes read to be submitted
+    
+    finally sunmitted final changes
+
+commit df395be26852fece3b23d2db751ed5d76639d01d
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Oct 2 21:19:47 2024 -0400
+
+    tested load and save methods
+    
+    used strings to test methods for billpersistence Manager
+
+commit 4f4d4e19844a70c7f11a62f9af74c8bbe0038144
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Oct 2 00:45:30 2024 -0400
+
+    made sure that the file loads when the program is started
+    
+    removed the freature where the user needs to find the file location to load a file
+
+commit 9dc83457b3ec086a1c1bba4cc823d9125efe157b
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Fri Sep 27 15:25:57 2024 -0400
+
+    made sure that the reciept area could not be edited
+    
+    mades sure that setEditible was false because it messed up the display of the text area
+
+commit 45d217603c7c1a163e1bacee654a2b750baf503e
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Fri Sep 27 03:12:19 2024 -0400
+
+    changed window name to include student
+    
+    window now includes The name markees Ewers
+
+commit 961385161890be3905785c3900d1d5f2de151210
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Fri Sep 27 03:09:06 2024 -0400
+
+    added load method
+    
+    added a load method to make sure that a user can pick a txt file from the folder and make sure that it can be loaded into a bill
+
+commit 4d6658caa85c907536fd7c7643983f72dd971f6d
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Thu Sep 26 23:20:45 2024 -0400
+
+    added a way to save bill data to a file
+    
+    made sure that bill used a file writer to add bills to a file
+
+commit 0d6dbe25e43b664879326689cd302c8559f082f1
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Thu Sep 26 18:20:07 2024 -0400
+
+    added lab 5 to repository
+    
+    lab 5 added to repository so I can work on it
+
+commit 6df2eae496a272d80011cb851260dbccfa1ccac5
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Thu Sep 26 00:51:20 2024 -0400
+
+    added link for repository
+    
+    made sure my professor can give me a grade because he has a link to the repository
+
+commit 941330135290dc98d29596a9584b099cbac6cae0
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Thu Sep 26 00:29:15 2024 -0400
+
+    fully unit tested the utility method
+    
+    made sure that addAllItems worked correctly
+
+commit 77f3e36e2d60e29649ff6cf38e1988b54399dcf5
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Sep 25 18:18:27 2024 -0400
+
+    fully unit tested FoodInventory
+    
+    foodInventory was fully unit tested to insure that nothing can be in the inventory that is null
+
+commit 424057d0a5ef888d74195d898f4c4cdefbfd97a5
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Sep 25 17:48:26 2024 -0400
+
+    fully unit tested the foodItem method
+    
+    made sure that food items is fully unit tested
+
+commit da719b03fc3a278133dc5a1e58938034b44488c2
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Wed Sep 25 17:46:20 2024 -0400
+
+    unit tested fooditem/testConstructor
+    
+    fully unit tested the fooditem/testConstructor with valid tests and before each
+
+commit 286832b6ad12758ba29f76396ba25e4e1547f7c2
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Mon Sep 23 16:21:41 2024 -0400
+
+    added Counting the pantry featureRemoveFoodFromPantry
+    
+    added a button with a method in the utillity class to count total amount of items in the list.
+
+commit 797b5f57152712d24ba1c439bc327c62d9bca403
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Mon Sep 23 14:13:01 2024 -0400
+
+    made sure there are no errors with this branch
+    
+    made sure that there are no errors within this branch
+
+commit c092ed91b8519afdc874345721fef1eef6a594e5
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Mon Sep 23 14:09:43 2024 -0400
+
+    made sure increment and decrement had its own method
+    
+    ensured that increment the count and decrement count has its own method
+
+commit ed5914ff9e0d989f9782e3cbe574875a85c51878
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Mon Sep 23 13:37:03 2024 -0400
+
+    add a way to make sure that the Quantity for each item can be set
+    
+    Created the add and decrement buton to change the associated value of each item. item gets deleted if increment is below 1
+
+commit f58dabc33e3feeaabb20fe3249976a90a80a4ca5
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Mon Sep 23 10:55:17 2024 -0400
+
+    added the logic for storing a food
+    
+    created a data class that will store the information for a single
+
+commit f37978b9330f847edb605221a5246f0988948c5e
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Sun Sep 22 00:27:21 2024 -0400
+
+    created main logic for individual food item
+    
+    created the logic for food item and made sure that it has all precondition checks
+
+commit 637dcd38c9e9e8f6f7d7729b703e23bc7e965c2f
+Author: Markees Anthony Ewers <me00070@my.westga.edu>
+Date:   Sat Sep 21 20:53:09 2024 -0400
+
+    Created the skeleton for this project
+    
+    I created a good file directory for this project and got javaFX to statrt working
+
+commit f1bca06c86398b5e5cc0461d218b57659570ef73
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Sat Sep 21 18:21:53 2024 -0400
+
+    Initial commit
