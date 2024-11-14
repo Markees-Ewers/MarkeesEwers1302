@@ -54,7 +54,7 @@ public class ViewModel {
 		
 		this.password = new SimpleStringProperty("");
 		this.errorText = new SimpleStringProperty("");
-		
+		this.minimumLengthValidator();
 		this.pastPasswords = new SimpleListProperty<>(FXCollections.observableArrayList());
 
         Random randomNumberGenerator = new Random();
@@ -167,5 +167,15 @@ public class ViewModel {
     	this.password.setValue(password);
     	this.pastPasswords.add(password);
     }
+	
+	private void minimumLengthValidator() {
+		this.minimumLength.addListener((observable, oldValue, newValue) -> {
+			if (!newValue.matches("\\d*")) {
+			this.errorText.setValue("Minimum Length must only be a number");
+			} else {
+				this.errorText.set("");
+			}
 
+		});
+	}
 }

@@ -1,6 +1,9 @@
 package edu.westga.cs1302.password_generator.view;
 
 import edu.westga.cs1302.password_generator.viewmodel.ViewModel;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -44,6 +47,7 @@ public class MainWindow {
 		this.vm.getRequireUppercase().bind(this.mustIncludeUpperCaseLetters.selectedProperty());
 		this.minimumLength.setText(this.vm.getMinimumLength().getValue());
 		this.vm.getMinimumLength().bind(this.minimumLength.textProperty());
+
 		this.passwordListView.itemsProperty().bind(this.vm.pastPasswordsProperty());
 
 		this.errorTextLabel.textProperty().bind(this.vm.getErrorText());
@@ -51,17 +55,22 @@ public class MainWindow {
 		this.generatePasswordButton.setOnAction((event) -> {
 			this.vm.generatePassword();
 		});
-		this.minimumLengthValidator();
+
+		this.listReverser();
+
 	}
 
-	private void minimumLengthValidator() {
-		this.minimumLength.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("\\d*")) { 
-				this.vm.getErrorText().setValue("Minimum Length must only be a number");
-			} else {
-				this.vm.getErrorText().set("");
-			}
+	/*
+	 * reverses the list so that past items are at the bottom 
+	 */
+	private void listReverser() {
+		ListProperty<String> reversedPastPasswords = new SimpleListProperty<>(FXCollections.observableArrayList());
+		reversedPastPasswords.set(FXCollections.observableArrayList(this.vm.pastPasswordsProperty()));
+		FXCollections.reverse(reversedPastPasswords.get()); 
 
+		this.passwordListView.itemsProperty().bind(reversedPastPasswords); 
+		this.generatePasswordButton.setOnAction((event) -> {
+			this.vm.generatePassword();
 		});
 	}
 
