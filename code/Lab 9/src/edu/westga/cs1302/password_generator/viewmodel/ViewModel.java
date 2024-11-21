@@ -37,6 +37,30 @@ public class ViewModel {
 
         Random randomNumberGenerator = new Random();
         this.generator = new PasswordGenerator(randomNumberGenerator.nextLong());
+
+        // Add ChangeListener to minimumLength property
+        this.minimumLength.addListener((observable, oldValue, newValue) -> {
+            this.validateMinimumLength(newValue);
+        });
+    }
+	
+	/**
+	 * Validates the minimum length input and updates the error text accordingly.
+	 *
+	 * @param newValue the new value of the minimum length property
+	 */
+	private void validateMinimumLength(String newValue) {
+	    try {
+	        int minLength = Integer.parseInt(newValue);
+	        if (minLength <= 0) {
+	            throw new IllegalArgumentException("must be a positive integer.");
+	        }
+	        this.errorText.setValue(""); 
+	    } catch (NumberFormatException ex) {
+	        this.errorText.setValue("Invalid Minimum Length: must be a positive integer, but was " + newValue);
+	    } catch (IllegalArgumentException ex) {
+	        this.errorText.setValue("Invalid Minimum Length: " + ex.getMessage());
+	    }
 	}
 
 	/** Return the minimum length property
@@ -86,7 +110,7 @@ public class ViewModel {
 	public StringProperty getErrorText() {
 		return this.errorText;
 	}
-
+	
 	/** Generates a password using the minimum length, require digit, require lower case, and require upper case property values.
 	 * 
 	 * If a password is successfully generated, the error text property is set to empty string and the password property is set to the password generated.

@@ -11,6 +11,7 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?xml-model href=""?>
 <AnchorPane minHeight="366.0" minWidth="215.0" prefHeight="399.0" prefWidth="215.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs1302.password_generator.view.MainWindow">
    <children>
       <TextField fx:id="minimumLength" layoutX="116.0" layoutY="65.0" prefHeight="25.0" prefWidth="41.0" />

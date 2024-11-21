@@ -43,6 +43,8 @@ public class MainWindow {
     	this.output.textProperty().bind(this.vm.getPassword());
     	this.errorTextLabel.textProperty().bind(this.vm.getErrorText());
     	
+    	this.generatePasswordButton.disableProperty().bind(this.vm.getErrorText().isNotEmpty());
+    
     	this.generatePasswordButton.setOnAction(
     			(event) -> { 
     				this.vm.generatePassword();
