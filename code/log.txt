@@ -1,3 +1,27 @@
+commit 27f308d8bacef4777e9a98cc39130f80fdb43ad5
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Nov 21 02:58:05 2024 -0500
+
+    added input validation for generate button
+    
+    made it so that the button cannot be hit if the input is not validated
+
+commit ab618b4cac831cb135463c239690b7197521c935
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Nov 21 02:36:57 2024 -0500
+
+    added file menu to close and about
+    
+    made the file so that it could be added and closed
+
+commit 231e663bfd62bf1f1c0b786745b97ab17d543466
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Nov 14 06:23:41 2024 -0500
+
+    added log.txt
+    
+    added log.txt to make sure it works
+
 commit 7b4293b5a2ac65f34c01b5de5238ee1af9d9f2ed
 Author: Markees-Ewers <Me00070@my.westga.edu>
 Date:   Thu Nov 14 06:19:33 2024 -0500
