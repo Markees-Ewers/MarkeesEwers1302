@@ -21,14 +21,21 @@ public class Task {
 	 * 
 	 * @precondition name != null || name != empty
 	 * 
-	 * @precondion description !+ null || name != empty
-	 *
+	 * @preconditon description !+ null || name != empty
+	 * @precondition name !contain "-"
+	 *@precondition description 1contain "-"
 	 * @param name the name
 	 * @param description the description
 	 */
 	public Task(String name, String description) {
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("Name cannot be blank or null ");
+		}
+		if(name.contains("-")) {
+			throw new IllegalArgumentException("name cannot contain: -" );
+		}
+		if(description.contains("-")) {
+			throw new IllegalArgumentException("description cannot contain: -");
 		}
 		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("Description cannot be blank or null");
@@ -50,12 +57,15 @@ public class Task {
 	/**
 	 * Sets the description.
 	 * @precondition name != null || blank
+	 * @precondition name !contain description
 	 *
 	 * @param description the new description
 	 */
 	public void setDescription(String description) {
 		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("Description cannot be blank or null");
+		}if(description.contains("-")) {
+			throw new IllegalArgumentException("description cannot contain: -");
 		}
 		this.description = description;
 	}
@@ -63,13 +73,17 @@ public class Task {
 	/**
 	 * Sets the name.
 	 * 
-	 * name != null || name != blank
+	 * @precondition name != null || name != blank
+	 * @precondition name !contain "-"
 	 *
 	 * @param name the new name
 	 */
 	public void setName(String name) {
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("Name cannot be blank or null ");
+		}
+		if(name.contains("-")) {
+			throw new IllegalArgumentException("name cannot contain: -" );
 		}
 		this.name = name;
 	}
@@ -82,6 +96,12 @@ public class Task {
 	public String getDescription() {
 	
 		return this.description;
+	}
+	
+	@Override
+	public String toString() {
+		return this.name + ":   " + this.description;
+		
 	}
 
 }

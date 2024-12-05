@@ -6,24 +6,27 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs1302.project3.model.Task;
 
-class TestSetDescription {
+class TestSetName {
 
 	@Test
 	void testSetDescriptionWithValidDescription() {
-
+		// Arrange
 		Task task = new Task("Initial Name", "Initial Description");
 		String newDescription = "Updated Description";
 
+		// Act
 		task.setDescription(newDescription);
 
+		// Assert
 		assertEquals(newDescription, task.getDescription());
 	}
 
 	@Test
 	void testSetDescriptionWithNullThrowsException() {
-
+		// Arrange
 		Task task = new Task("Initial Name", "Initial Description");
 
+		// Act and Assert
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> task.setDescription(null));
 		assertEquals("Description cannot be blank or null", exception.getMessage());
@@ -31,35 +34,24 @@ class TestSetDescription {
 
 	@Test
 	void testSetDescriptionWithBlankThrowsException() {
-
+		// Arrange
 		Task task = new Task("Initial Name", "Initial Description");
 
+		// Act and Assert
 		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
 				() -> task.setDescription("   "));
 		assertEquals("Description cannot be blank or null", exception.getMessage());
-	}@Test
+	}
+
+	@Test
 	void testCannotSetNameWithDash() {
 		Task task = new Task("Initial Name", "Initial Description");
 
 		String name = "name contains -";
 
 		// Act and Assert
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-				() -> task.setName(name));
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> task.setName(name));
 		assertEquals("name cannot contain: -", exception.getMessage());
 	}
 
-	@Test
-	void testCannotSetDescriptionWithDash() {
-		Task task = new Task("Initial Name", "Initial Description");
-
-		String description = "description contains -";
-
-		// Act and Assert
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-				() -> task.setDescription(description));
-		assertEquals("description cannot contain: -", exception.getMessage());
-	}
-
-	
 }
