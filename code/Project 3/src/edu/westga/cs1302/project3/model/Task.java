@@ -18,6 +18,10 @@ public class Task {
 
 	/**
 	 * Instantiates a new task.
+	 * 
+	 * @precondition name != null || name != empty
+	 * 
+	 * @precondion description !+ null || name != empty
 	 *
 	 * @param name the name
 	 * @param description the description
@@ -26,7 +30,7 @@ public class Task {
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("Name cannot be blank or null ");
 		}
-		if (description == null || name.isBlank()) {
+		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("Description cannot be blank or null");
 		}
 
@@ -45,15 +49,21 @@ public class Task {
 
 	/**
 	 * Sets the description.
+	 * @precondition name != null || blank
 	 *
 	 * @param description the new description
 	 */
 	public void setDescription(String description) {
+		if (description == null || description.isBlank()) {
+			throw new IllegalArgumentException("Description cannot be blank or null");
+		}
 		this.description = description;
 	}
 
 	/**
 	 * Sets the name.
+	 * 
+	 * name != null || name != blank
 	 *
 	 * @param name the new name
 	 */
@@ -70,10 +80,7 @@ public class Task {
 	 * @return the description
 	 */
 	public String getDescription() {
-		if (this.description == null || this.name.isBlank()) {
-			throw new IllegalArgumentException("Description cannot be blank or null");
-		}
-
+	
 		return this.description;
 	}
 

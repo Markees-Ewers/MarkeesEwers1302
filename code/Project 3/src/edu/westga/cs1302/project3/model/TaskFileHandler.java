@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import javafx.stage.FileChooser;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TaskFileHandler.
  * 
@@ -16,34 +17,53 @@ import javafx.stage.FileChooser;
  * @version spring 2024
  */
 public class TaskFileHandler {
-	
+
 	/**
 	 * Save task file.
 	 *
-	 * @param tasks the tasks
+	 * 
+	 * @return the file that the user selects
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static void saveTaskFile(TaskManager tasks) throws IOException {
+	public static File saveTaskFile() throws IOException {
+		// can't test this because its user input but its handled by built in
+		// filechooser
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save Task");
 		chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+
 		File selectedFile = chooser.showSaveDialog(null);
-		if (selectedFile != null) {
 
-			if (!selectedFile.getName().endsWith(".txt")) {
-				selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
-			}
+		return selectedFile;
+	}
 
-			try (FileWriter writer = new FileWriter(selectedFile)) {
-				for (Task curr : tasks.getAllTasks()) {
-					writer.write(curr.getName() + " - " + curr.getDescription() + System.lineSeparator());
-				}
-				System.out.println("Tasks successfully saved to " + selectedFile.getAbsolutePath());
-			} catch (IOException ex) {
-				System.err.println("Error saving tasks: " + ex.getMessage());
+	/**
+	 * Save task file.
+	 *
+	 * @param tasks        the tasks
+	 * @param selectedFile the fileLocation to write to
+	 * @throws IOException           Signals that an I/O exception has occurred.
+	 * @throws IllegalStateException if file is null likely because filechooser was
+	 *                               closed
+	 * @returns the file location of the saved file
+	 */
+	public static void saveTaskFile(TaskManager tasks, File selectedFile) throws IOException, IllegalStateException {
+		if (tasks == null) {
+			throw new IllegalArgumentException("tasks cannot be null");
+		}
+		if (selectedFile == null) {
+			throw new IllegalStateException("File could not be loaded file was null");
+		}
+		if (!selectedFile.getName().endsWith(".txt")) {
+			selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
+		}
+		try (FileWriter writer = new FileWriter(selectedFile)) {
+			for (Task curr : tasks.getAllTasks()) {
+				writer.write(curr.getName() + " - " + curr.getDescription() + System.lineSeparator());
 			}
-		} else {
-			System.out.println("Save operation canceled.");
+			System.out.println("Tasks successfully saved to " + selectedFile.getAbsolutePath());
+		} catch (IOException ex) {
+			System.err.println("Error saving tasks: " + ex.getMessage());
 		}
 	}
 
@@ -51,16 +71,15 @@ public class TaskFileHandler {
 	 * Load task file.
 	 *
 	 * @return the list
+	 * @param file to load
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static List<Task> loadTaskFile() throws IOException {
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Open Task File");
-		File selectedFile = chooser.showOpenDialog(null);
+	public static List<Task> loadTaskFile(File file) throws IOException {
+	
 		List<Task> tasks = new ArrayList<>();
-		if (selectedFile != null) {
+		if (file != null) {
 
-			try (Scanner scnr = new Scanner(selectedFile)) {
+			try (Scanner scnr = new Scanner(file)) {
 				while (scnr.hasNextLine()) {
 					String line = scnr.nextLine();
 					String[] parts = line.split(" - ");
