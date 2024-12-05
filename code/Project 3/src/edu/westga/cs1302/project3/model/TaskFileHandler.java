@@ -23,18 +23,23 @@ public class TaskFileHandler {
 	 *
 	 * 
 	 * @return the file that the user selects
+	 * @param showOpen if true the button shows a prompt to open otherwise it shows
+	 *                 to save;
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static File saveTaskFile() throws IOException {
+	public static File taskFileChooser(Boolean showOpen) throws IOException {
 		// can't test this because its user input but its handled by built in
 		// filechooser
 		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Save Task");
-		chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-
-		File selectedFile = chooser.showSaveDialog(null);
-
-		return selectedFile;
+		if (showOpen) {
+			chooser.setTitle("Open Task File");
+			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+			return chooser.showOpenDialog(null);
+		} else {
+			chooser.setTitle("Save Task File");
+			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+			return chooser.showSaveDialog(null);
+		}
 	}
 
 	/**
@@ -75,7 +80,7 @@ public class TaskFileHandler {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static List<Task> loadTaskFile(File file) throws IOException {
-	
+
 		List<Task> tasks = new ArrayList<>();
 		if (file != null) {
 

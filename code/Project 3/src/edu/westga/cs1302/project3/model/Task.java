@@ -1,18 +1,18 @@
 package edu.westga.cs1302.project3.model;
 
 /**
- * a single task 
+ * a single task
  * 
  * @version fall 2024
- *@author me00070
+ * @author me00070
  * 
- * The Class Task.
+ *         The Class Task.
  */
 public class Task {
 
 	/** The name. */
 	private String name;
-	
+
 	/** The description. */
 	private String description;
 
@@ -23,18 +23,18 @@ public class Task {
 	 * 
 	 * @preconditon description !+ null || name != empty
 	 * @precondition name !contain "-"
-	 *@precondition description 1contain "-"
-	 * @param name the name
+	 * @precondition description 1contain "-"
+	 * @param name        the name
 	 * @param description the description
 	 */
 	public Task(String name, String description) {
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("Name cannot be blank or null ");
 		}
-		if(name.contains("-")) {
-			throw new IllegalArgumentException("name cannot contain: -" );
+		if (name.contains("-")) {
+			throw new IllegalArgumentException("name cannot contain: -");
 		}
-		if(description.contains("-")) {
+		if (description.contains("-")) {
 			throw new IllegalArgumentException("description cannot contain: -");
 		}
 		if (description == null || description.isBlank()) {
@@ -56,6 +56,7 @@ public class Task {
 
 	/**
 	 * Sets the description.
+	 * 
 	 * @precondition name != null || blank
 	 * @precondition name !contain description
 	 *
@@ -64,7 +65,8 @@ public class Task {
 	public void setDescription(String description) {
 		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("Description cannot be blank or null");
-		}if(description.contains("-")) {
+		}
+		if (description.contains("-")) {
 			throw new IllegalArgumentException("description cannot contain: -");
 		}
 		this.description = description;
@@ -82,8 +84,8 @@ public class Task {
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("Name cannot be blank or null ");
 		}
-		if(name.contains("-")) {
-			throw new IllegalArgumentException("name cannot contain: -" );
+		if (name.contains("-")) {
+			throw new IllegalArgumentException("name cannot contain: -");
 		}
 		this.name = name;
 	}
@@ -94,14 +96,14 @@ public class Task {
 	 * @return the description
 	 */
 	public String getDescription() {
-	
+
 		return this.description;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.name + ":   " + this.description;
-		
+
 	}
 
 }
