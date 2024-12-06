@@ -6,9 +6,13 @@ import java.io.IOException;
 import edu.westga.cs1302.project3.model.Task;
 import edu.westga.cs1302.project3.viewmodel.MainWindowVM;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 
@@ -25,6 +29,8 @@ public class MainWindow {
 	private MenuItem loadTaskMenuItem;
 	@FXML
 	private MenuItem saveTaskMenuItem;
+	@FXML
+	private MenuItem addTaskMenuItem;
 
 	private MainWindowVM mainWindowVM;
 
@@ -35,6 +41,7 @@ public class MainWindow {
 		this.taskListView.itemsProperty().bind(this.mainWindowVM.tasksProperty());
 		this.loadMenu();
 		this.saveMenu();
+		this.addTaskWindow();
 	}
 
 	private void loadMenu() {
@@ -47,6 +54,26 @@ public class MainWindow {
 			} catch (IllegalArgumentException ex) {
 				this.popup(ex.getMessage(), AlertType.ERROR);
 			}
+		});
+	}
+
+	private void addTaskWindow() {
+		this.addTaskMenuItem.setOnAction(event -> {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
+
+				Scene scene = new Scene(loader.load());
+				Stage addTaskStage = new Stage();
+				addTaskStage.setTitle("Add Task Window");
+				addTaskStage.setScene(scene);
+				addTaskStage.initModality(Modality.APPLICATION_MODAL);
+				addTaskStage.initOwner(this.taskListView.getScene().getWindow());
+
+				addTaskStage.showAndWait();
+			} catch (IOException ex) {
+				this.popup(ex.getMessage(), AlertType.ERROR);
+			}
+
 		});
 	}
 

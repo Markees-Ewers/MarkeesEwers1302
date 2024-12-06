@@ -16,7 +16,7 @@
             <items>
                   <MenuItem fx:id="loadTaskMenuItem" mnemonicParsing="false" text="Load Tasks" />
                   <MenuItem fx:id="saveTaskMenuItem" mnemonicParsing="false" text="Save Tasks" />
-              <MenuItem mnemonicParsing="false" text="Add Task" />
+              <MenuItem fx:id="addTaskMenuItem" mnemonicParsing="false" text="Add Task" />
                   <MenuItem mnemonicParsing="false" text="Add People" />
                   <MenuItem mnemonicParsing="false" text="Close" />
             </items>
