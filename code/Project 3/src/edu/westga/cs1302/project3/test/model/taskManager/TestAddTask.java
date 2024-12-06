@@ -20,6 +20,21 @@ class TestAddTask {
 	}
 
 	@Test
+	void testShouldNotAllowDuplicateName() {
+		// Setup
+		Task task = new Task("Task 1", "Description 1");
+		Task task2 = new Task("Task 1", "diff description");
+		// Act
+		taskManager.addTask(task);
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			taskManager.addTask(task2);
+		});
+		assertEquals(taskManager.getAllTasks().size(), 1);
+
+	}
+
+	@Test
 	void testAddTaskValidTask() {
 		// Setup
 		Task task = new Task("Task 1", "Description 1");

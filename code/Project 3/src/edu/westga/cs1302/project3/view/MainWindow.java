@@ -34,7 +34,7 @@ public class MainWindow {
 	private MenuItem addTaskMenuItem;
 	@FXML
 	private Button addTaskButton;
-	
+
 	@FXML
 	private Button removeButton;
 
@@ -68,8 +68,7 @@ public class MainWindow {
 		});
 
 		// Disable the button if no task is selected
-		this.removeButton.disableProperty()
-				.bind(this.taskListView.getSelectionModel().selectedItemProperty().isNull());
+		this.removeButton.disableProperty().bind(this.taskListView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	private void addButton() {
@@ -91,6 +90,8 @@ public class MainWindow {
 				addTaskStage.initModality(Modality.APPLICATION_MODAL);
 				addTaskStage.initOwner(this.taskListView.getScene().getWindow());
 				addTaskStage.showAndWait();
+				this.mainWindowVM.taskDescriptionProperty().set("");
+				this.mainWindowVM.taskTitleProperty().set("");
 			} catch (IOException ex) {
 				System.err.println(ex.getMessage());
 				this.popup(ex.getMessage(), Alert.AlertType.ERROR);
@@ -130,6 +131,8 @@ public class MainWindow {
 				addTaskStage.initModality(Modality.APPLICATION_MODAL);
 				addTaskStage.initOwner(this.taskListView.getScene().getWindow());
 				addTaskStage.showAndWait();
+				this.mainWindowVM.taskDescriptionProperty().set("");
+				this.mainWindowVM.taskTitleProperty().set("");
 			} catch (IOException ex) {
 				this.popup(ex.getMessage(), Alert.AlertType.ERROR);
 			}

@@ -1,3 +1,120 @@
+commit 9a7ac7040f3363236170e1c2d8f0cddaf3df1969
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Dec 6 04:25:01 2024 -0500
+
+    added deleting tasks from the task manager
+    
+    made it so that a user can delete tasks will be disabled if there are no task to delete
+
+commit 9ccf8a2be5c5b82ca1471afa37ae90de86f4b5e8
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Dec 6 03:51:58 2024 -0500
+
+    created the ability to add files completely
+    
+    made so the + button brings up the same menu as the add menu Item
+
+commit d70cc3427dbebd610c8f0cdd16c99c9c4b994d4f
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Dec 6 00:23:04 2024 -0500
+
+    create the ability to close addTaskWindow
+    
+    created the ability to close the window with the close button
+
+commit 34d441b423d42f52a692f87cf0d918f2bedb3388
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Dec 6 00:00:29 2024 -0500
+
+    added the popup for addTaskWindow
+    
+    created the ability to display pop to add a specific task
+
+commit 4001408b3c3788b879402e5e417dc6caf6504b74
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Dec 5 20:50:36 2024 -0500
+
+    created add and remove in model/TaskManager
+    
+    added the ability to create and add in the model and tested
+
+commit bfd3469c4b915d4042cc1657a84bd769e05d40d6
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Dec 5 20:31:59 2024 -0500
+
+    added abiltiy to save set of tasks
+    
+    created add and delete methods and allowed users to store a set of tasks to a file
+
+commit cfb221de96db80a4d03f97d470f124dbb121f1a9
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Dec 5 13:10:54 2024 -0500
+
+    made changes with gui
+    
+    made it so that users can save
+
+commit 6673cafe15fdc7ae2f622e93c44c6c056fe1ed19
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Dec 5 13:06:47 2024 -0500
+
+    added ability to load files from .txt Files in the correct format
+    
+    maked the bindings from view to view Model
+    made it so that user can select a file if file is not in proper format a popup occurs
+
+commit abee890de0352c03e1747d05e28e5e03685b221f
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Thu Dec 5 11:49:40 2024 -0500
+
+    added gui to support displaying a set of task/TestConstructor
+    
+    added some test to make sure no inputs with dashes are allowed that would mess up the file reading and writing
+
+commit 03bdfd0e8e64c1431b2be5dd81c106614964734e
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Wed Dec 4 23:48:13 2024 -0500
+
+    added saving and loading
+    
+    added tests for saving and loading
+
+commit 19e25361087fdce856ce7bc391310a9d9c1e5463
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Wed Dec 4 18:56:54 2024 -0500
+
+    B – Managing Tasks
+    
+    Implement a class which supports storing the set of tasks in the system (can add and remove tasks).
+
+commit 3a4167cd5f5959244537d3693e9522bfa362dbd9
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Wed Dec 4 15:13:05 2024 -0500
+
+    added task
+    
+     a class which supports storing a Task. Tasks have a title summarizing the purpose of
+    the task and a description giving detail about what is required for the task. All Tasks must have a title and
+    description
+
+commit b1a8548f0f306fb658fa456c1c78b828b18f33a7
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Wed Dec 4 15:04:47 2024 -0500
+
+    added class to store task
+    
+    a class which supports storing a Task. Tasks have a title summarizing the purpose of
+    the task and a description giving detail about what is required for the task. All Tasks must have a title and
+    description
+
+commit c163c05d3e0a856f9c67b95ab6d67a9eebf81e20
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Wed Dec 4 14:53:33 2024 -0500
+
+    created setup for the project
+    
+    made sure that the file was running and workinng
+
 commit 27f308d8bacef4777e9a98cc39130f80fdb43ad5
 Author: Markees-Ewers <Me00070@my.westga.edu>
 Date:   Thu Nov 21 02:58:05 2024 -0500

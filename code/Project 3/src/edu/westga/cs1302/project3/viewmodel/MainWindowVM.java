@@ -8,7 +8,6 @@ import edu.westga.cs1302.project3.model.Task;
 import edu.westga.cs1302.project3.model.TaskFileHandler;
 import edu.westga.cs1302.project3.model.TaskManager;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -45,7 +44,6 @@ public class MainWindowVM {
 		this.tasks = new SimpleListProperty<>(observableTasks);
 		Task defaultTask = new Task("take walk", "walk around the building");
 		this.addTask(defaultTask);
-		System.out.println(this.taskManager.getAllTasks().size());
 
 		this.taskDescription = new SimpleStringProperty();
 		this.taskTitle = new SimpleStringProperty();
@@ -78,26 +76,25 @@ public class MainWindowVM {
 	private void addTask(Task task) {
 		if (task == null) {
 			throw new IllegalArgumentException("Task cannot be null");
-		}
+		} // behind the scenes
 		this.taskManager.addTask(task);
+		// visible one
 		this.tasks.add(task);
-		System.out.println("task Manager size = " + this.taskManager.getAllTasks().size());
-		System.out.println("ObservableList size: " + this.tasks.size());
+
 	}
 
 	/**
 	 * Removes the task.
 	 *
-	 * @param task the task
+	 * @param selectedTask the task to be removed
 	 */
 	public void removeSelectedTask(Task selectedTask) {
 		if (selectedTask == null) {
 			throw new IllegalArgumentException("No task selected for removal.");
-		}
-		this.taskManager.removeTask(selectedTask); // Update TaskManager
-		this.tasks.remove(selectedTask); // Update ObservableList
-		System.out.println("delete taskManager size =" + this.taskManager.getAllTasks().size());
-		System.out.println("dlete tasks size = " + this.tasks.size());
+		} // Update TaskManager
+		this.taskManager.removeTask(selectedTask);
+		// Update ObservableList
+		this.tasks.remove(selectedTask);
 	}
 
 	/**
@@ -131,20 +128,25 @@ public class MainWindowVM {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void loadTasks(File file) throws IOException {
-
-		ArrayList<Task> tasks = TaskFileHandler.loadTaskFile(file);
-		if (file != null) {
-			if (!file.getName().toLowerCase().endsWith(".txt")) {
-				throw new IllegalArgumentException("File must end: .txt");
-			}
-			this.tasks.clear();
-			this.tasks.addAll(tasks);
-			this.taskManager.clear();
-			this.taskManager.addAll(tasks);
-
-			System.out.println("load manager size " + this.taskManager.getAllTasks().size());
-			System.out.println("load task size " + this.tasks.getSize());
+		if (file == null) {
+			throw new IllegalArgumentException("File cannot be null");
 		}
+		if (!file.getName().toLowerCase().endsWith(".txt")) {
+			throw new IllegalArgumentException("File must end with .txt");
+		}
+
+		// Clear existing tasks
+		this.tasks.clear();
+		this.taskManager.clear();
+
+		// Load tasks from file
+		ArrayList<Task> tasks = TaskFileHandler.loadTaskFile(file);
+
+		// Add loaded tasks
+		// Add to TaskManager (performs hash checks)
+		this.taskManager.addAll(tasks);
+		// Add to ObservableList
+		this.tasks.addAll(tasks);
 
 	}
 
@@ -156,14 +158,12 @@ public class MainWindowVM {
 	 */
 	public void saveTask(File file) throws IOException {
 		if (file == null) {
-			System.out.println("No file selected. Save operation canceled.");
 			return;
 		}
-
 		// Convert ObservableList to standard ArrayList
-
+		// this is used to bring up the file
+		@SuppressWarnings("unused")
 		File savedFile = TaskFileHandler.saveTaskFile(this.taskManager, file);
-		System.out.println("Tasks successfully saved to " + savedFile.getAbsolutePath());
 
 	}
 }

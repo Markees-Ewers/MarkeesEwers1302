@@ -42,7 +42,7 @@ public class TaskFileHandler {
 			for (Task curr : tasks.getAllTasks()) {
 				writer.write(curr.getName() + " - " + curr.getDescription() + System.lineSeparator());
 			}
-			System.out.println("Tasks successfully saved to " + selectedFile.getAbsolutePath());
+		
 		}
 
 		return selectedFile;
