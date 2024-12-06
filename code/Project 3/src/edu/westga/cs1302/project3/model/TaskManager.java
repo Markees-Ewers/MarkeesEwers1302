@@ -39,6 +39,9 @@ public class TaskManager {
 	 * @param task the task that gets deleted
 	 */
 	public void removeTask(Task task) {
+		if (task == null) {
+			throw new IllegalArgumentException("Task cannot be null");
+		}
 		this.tasks.remove(task);
 
 	}
