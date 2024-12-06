@@ -1,9 +1,12 @@
 package edu.westga.cs1302.project3.view;
 
+import edu.westga.cs1302.project3.viewmodel.MainWindowVM;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -25,14 +28,25 @@ public class AddTaskWindow {
 	@FXML
 	private TextField titleTextField;
 
-	private AddTaskWindow addTaskVm;
+	private MainWindowVM vm;
+
+	/**
+	 * Sets the view model.
+	 *
+	 * @param vm the new view model
+	 */
+	public void setViewModel(MainWindowVM vm) {
+		this.vm = vm;
+
+		// Bind the ViewModel properties to the UI components
+		this.titleTextField.textProperty().bindBidirectional(this.vm.taskTitleProperty());
+		this.descriptionTextArea.textProperty().bindBidirectional(this.vm.taskDescriptionProperty());
+	}
 
 	@FXML
 	void initialize() {
-		this.addTaskVm = new AddTaskWindow();
-
 		this.closeWindow();
-
+		this.handleAddTaskAction();
 	}
 
 	private void closeWindow() {
@@ -42,4 +56,24 @@ public class AddTaskWindow {
 		});
 	}
 
+	/**
+	 * Handle add task action.
+	 */
+	private void handleAddTaskAction() {
+		this.addTaskButton.setOnAction(event -> {
+			try {
+				this.vm.addTask(); 
+				Stage stage = (Stage) this.addTaskButton.getScene().getWindow();
+				stage.close();
+			} catch (IllegalArgumentException ex) {
+				this.popup(ex.getMessage(), AlertType.ERROR);
+			}
+		});
+	}
+
+	private void popup(String message, AlertType alertType) {
+		Alert alert = new Alert(alertType);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 }

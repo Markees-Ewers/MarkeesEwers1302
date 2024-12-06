@@ -55,4 +55,21 @@ public class TaskManager {
 		return new ArrayList<>(this.tasks);
 	}
 
+	/**
+	 * Adds the all.
+	 *
+	 * @param tasks the tasks
+	 */
+	public void addAll(ArrayList<Task> tasks) {
+	this.tasks.addAll(tasks);
+		
+	}
+	
+	/**
+	 * Clear.
+	 */
+	public void clear() {
+		this.tasks.clear();
+	}
+
 }

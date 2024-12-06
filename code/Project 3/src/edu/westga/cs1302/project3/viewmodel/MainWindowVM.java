@@ -2,13 +2,15 @@ package edu.westga.cs1302.project3.viewmodel;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import edu.westga.cs1302.project3.model.Task;
 import edu.westga.cs1302.project3.model.TaskFileHandler;
 import edu.westga.cs1302.project3.model.TaskManager;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,6 +29,12 @@ public class MainWindowVM {
 	/** The task manager. */
 	private TaskManager taskManager;
 
+	/** The task title. */
+	private StringProperty taskTitle;
+
+	/** The task description. */
+	private StringProperty taskDescription;
+
 	/**
 	 * Instantiates a new main window VM.
 	 */
@@ -37,16 +45,43 @@ public class MainWindowVM {
 		Task defaultTask = new Task("take walk", "walk around the building");
 		this.addTask(defaultTask);
 		System.out.println(this.taskManager.getAllTasks().size());
+
+		this.taskDescription = new SimpleStringProperty();
+		this.taskTitle = new SimpleStringProperty();
+
 	}
 
 	/**
-	 * Adds the task.
+	 * Task title property.
+	 *
+	 * @return the string property
+	 */
+	public StringProperty taskTitleProperty() {
+		return this.taskTitle;
+	}
+
+	/**
+	 * Task description property.
+	 *
+	 * @return the string property
+	 */
+	public StringProperty taskDescriptionProperty() {
+		return this.taskDescription;
+	}
+
+	/**
+	 * private helper add task.
 	 *
 	 * @param task the task
 	 */
-	public void addTask(Task task) {
+	private void addTask(Task task) {
+		if (task == null) {
+			throw new IllegalArgumentException("Task cannot be null");
+		}
 		this.taskManager.addTask(task);
-		this.tasks.set(FXCollections.observableArrayList(this.taskManager.getAllTasks()));
+		this.tasks.add(task);
+		System.out.println("task Manager size = " + this.taskManager.getAllTasks().size());
+		System.out.println("ObservableList size: " + this.tasks.size());
 	}
 
 	/**
@@ -54,9 +89,21 @@ public class MainWindowVM {
 	 *
 	 * @param task the task
 	 */
-	public void removeTask(Task task) {
+	private void removeTask(Task task) {
 		this.taskManager.removeTask(task);
 		this.tasks.set(FXCollections.observableArrayList(this.taskManager.getAllTasks()));
+	}
+
+	/**
+	 * Adds the task.
+	 */
+	public void addTask() {
+		if (this.taskTitle.get() == null || this.taskDescription.get().isBlank()) {
+			throw new IllegalArgumentException("Task title cannot be blank");
+		}
+		Task newTask = new Task(this.taskTitle.get(), this.taskDescription.get());
+		this.addTask(newTask);
+		this.taskManager.getAllTasks().size();
 	}
 
 	/**
@@ -76,13 +123,18 @@ public class MainWindowVM {
 	 */
 	public void loadTasks(File file) throws IOException {
 
-		List<Task> tasks = TaskFileHandler.loadTaskFile(file);
+		ArrayList<Task> tasks = TaskFileHandler.loadTaskFile(file);
 		if (file != null) {
 			if (!file.getName().toLowerCase().endsWith(".txt")) {
 				throw new IllegalArgumentException("File must end: .txt");
 			}
 			this.tasks.clear();
 			this.tasks.addAll(tasks);
+			this.taskManager.clear();
+			this.taskManager.addAll(tasks);
+			
+			System.out.println("load manager size " + this.taskManager.getAllTasks().size());
+			System.out.println("load task size " + this.tasks.getSize());
 		}
 
 	}

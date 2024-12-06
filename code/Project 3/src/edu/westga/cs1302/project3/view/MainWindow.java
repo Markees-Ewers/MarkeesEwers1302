@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +32,8 @@ public class MainWindow {
 	private MenuItem saveTaskMenuItem;
 	@FXML
 	private MenuItem addTaskMenuItem;
+	@FXML
+	private Button addTaskButton;
 
 	private MainWindowVM mainWindowVM;
 
@@ -39,9 +42,37 @@ public class MainWindow {
 		this.mainWindowVM = new MainWindowVM();
 
 		this.taskListView.itemsProperty().bind(this.mainWindowVM.tasksProperty());
+
 		this.loadMenu();
 		this.saveMenu();
 		this.addTaskWindow();
+		this.addButton();
+	}
+
+	private void addButton() {
+		this.addTaskButton.setOnAction(event -> {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
+				Scene scene = new Scene(loader.load());
+
+				// Get the controller for AddTaskWindow
+				AddTaskWindow controller = loader.getController();
+
+				// Pass the existing ViewModel to AddTaskWindow
+				controller.setViewModel(this.mainWindowVM);
+
+				// Create and show the stage
+				Stage addTaskStage = new Stage();
+				addTaskStage.setTitle("Add Task Window");
+				addTaskStage.setScene(scene);
+				addTaskStage.initModality(Modality.APPLICATION_MODAL);
+				addTaskStage.initOwner(this.taskListView.getScene().getWindow());
+				addTaskStage.showAndWait();
+			} catch (IOException ex) {
+				System.err.println(ex.getMessage());
+				this.popup(ex.getMessage(), Alert.AlertType.ERROR);
+			}
+		});
 	}
 
 	private void loadMenu() {
@@ -61,19 +92,24 @@ public class MainWindow {
 		this.addTaskMenuItem.setOnAction(event -> {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
-
 				Scene scene = new Scene(loader.load());
+
+				// Get the controller for AddTaskWindow
+				AddTaskWindow controller = loader.getController();
+
+				// Pass the existing ViewModel to AddTaskWindow
+				controller.setViewModel(this.mainWindowVM);
+
+				// Create and show the stage
 				Stage addTaskStage = new Stage();
 				addTaskStage.setTitle("Add Task Window");
 				addTaskStage.setScene(scene);
 				addTaskStage.initModality(Modality.APPLICATION_MODAL);
 				addTaskStage.initOwner(this.taskListView.getScene().getWindow());
-
 				addTaskStage.showAndWait();
 			} catch (IOException ex) {
-				this.popup(ex.getMessage(), AlertType.ERROR);
+				this.popup(ex.getMessage(), Alert.AlertType.ERROR);
 			}
-
 		});
 	}
 
