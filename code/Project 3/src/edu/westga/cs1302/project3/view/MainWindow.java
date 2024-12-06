@@ -34,6 +34,9 @@ public class MainWindow {
 	private MenuItem addTaskMenuItem;
 	@FXML
 	private Button addTaskButton;
+	
+	@FXML
+	private Button removeButton;
 
 	private MainWindowVM mainWindowVM;
 
@@ -47,6 +50,26 @@ public class MainWindow {
 		this.saveMenu();
 		this.addTaskWindow();
 		this.addButton();
+		this.setupRemoveButton();
+	}
+
+	private void setupRemoveButton() {
+		this.removeButton.setOnAction(event -> {
+			Task selectedTask = this.taskListView.getSelectionModel().getSelectedItem();
+			if (selectedTask != null) {
+				try {
+					this.mainWindowVM.removeSelectedTask(selectedTask);
+				} catch (IllegalArgumentException ex) {
+					this.popup("Cannot remove task: " + ex.getMessage(), Alert.AlertType.ERROR);
+				}
+			} else {
+				this.popup("Please select a task to remove.", Alert.AlertType.WARNING);
+			}
+		});
+
+		// Disable the button if no task is selected
+		this.removeButton.disableProperty()
+				.bind(this.taskListView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	private void addButton() {

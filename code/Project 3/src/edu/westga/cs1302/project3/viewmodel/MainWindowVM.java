@@ -8,6 +8,7 @@ import edu.westga.cs1302.project3.model.Task;
 import edu.westga.cs1302.project3.model.TaskFileHandler;
 import edu.westga.cs1302.project3.model.TaskManager;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -89,17 +90,25 @@ public class MainWindowVM {
 	 *
 	 * @param task the task
 	 */
-	private void removeTask(Task task) {
-		this.taskManager.removeTask(task);
-		this.tasks.set(FXCollections.observableArrayList(this.taskManager.getAllTasks()));
+	public void removeSelectedTask(Task selectedTask) {
+		if (selectedTask == null) {
+			throw new IllegalArgumentException("No task selected for removal.");
+		}
+		this.taskManager.removeTask(selectedTask); // Update TaskManager
+		this.tasks.remove(selectedTask); // Update ObservableList
+		System.out.println("delete taskManager size =" + this.taskManager.getAllTasks().size());
+		System.out.println("dlete tasks size = " + this.tasks.size());
 	}
 
 	/**
 	 * Adds the task.
 	 */
 	public void addTask() {
-		if (this.taskTitle.get() == null || this.taskDescription.get().isBlank()) {
+		if (this.taskTitle.get() == null || this.taskTitle.get().isBlank()) {
 			throw new IllegalArgumentException("Task title cannot be blank");
+		}
+		if (this.taskDescription.get() == null || this.taskDescription.get().isBlank()) {
+			throw new IllegalArgumentException("description cannot be blank");
 		}
 		Task newTask = new Task(this.taskTitle.get(), this.taskDescription.get());
 		this.addTask(newTask);
@@ -132,7 +141,7 @@ public class MainWindowVM {
 			this.tasks.addAll(tasks);
 			this.taskManager.clear();
 			this.taskManager.addAll(tasks);
-			
+
 			System.out.println("load manager size " + this.taskManager.getAllTasks().size());
 			System.out.println("load task size " + this.tasks.getSize());
 		}
