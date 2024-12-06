@@ -1,3 +1,11 @@
+commit ba6face3617f334623603272f5b709fe51bce981
+Author: Markees-Ewers <Me00070@my.westga.edu>
+Date:   Fri Dec 6 06:24:06 2024 -0500
+
+    created final tests make
+    
+    made sure everything was working inlcuded log.txt and github repo
+
 commit 9a7ac7040f3363236170e1c2d8f0cddaf3df1969
 Author: Markees-Ewers <Me00070@my.westga.edu>
 Date:   Fri Dec 6 04:25:01 2024 -0500
