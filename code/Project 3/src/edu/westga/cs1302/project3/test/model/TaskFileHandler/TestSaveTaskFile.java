@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs1302.project3.model.Task;
@@ -17,7 +18,17 @@ class TestSaveTaskFile {
 
 	private static final String TEST_DIRECTORY = "data/";
 
+	@AfterEach
+	void cleanupTestDirectory() {
 	
+		File directory = new File(TEST_DIRECTORY);
+		if (directory.exists()) {
+			for (File file : directory.listFiles()) {
+				file.delete();
+			}
+			directory.delete(); 
+		}
+	}
 
 	@Test
 	void testSaveWithNoTask() throws IOException {
@@ -25,8 +36,7 @@ class TestSaveTaskFile {
 		File testFile = new File(TEST_DIRECTORY + "testSaveWithNoTask.txt");
 		testFile.getParentFile().mkdirs();
 
-			TaskFileHandler.saveTaskFile(taskManager, testFile);
-
+		TaskFileHandler.saveTaskFile(taskManager, testFile);
 
 		List<String> lines = Files.readAllLines(testFile.toPath());
 		assertTrue(lines.isEmpty(), "Expected no lines in the output file for an empty TaskManager");
@@ -35,8 +45,8 @@ class TestSaveTaskFile {
 	@Test
 	void testSaveWithLongTaskNamesAndDescriptions() throws IOException {
 
-		String longName = "Task".repeat(100); 
-		String longDescription = "Description".repeat(100); 
+		String longName = "Task".repeat(100);
+		String longDescription = "Description".repeat(100);
 
 		TaskManager taskManager = new TaskManager();
 		taskManager.addTask(new Task(longName, longDescription));
@@ -61,7 +71,6 @@ class TestSaveTaskFile {
 		File testFile = new File(TEST_DIRECTORY + "testSaveFileWithSingleTask.txt");
 		testFile.getParentFile().mkdirs();
 
-		
 		TaskFileHandler.saveTaskFile(taskManager, testFile);
 
 		// Assert
@@ -73,7 +82,7 @@ class TestSaveTaskFile {
 
 	@Test
 	void testSaveTaskFileSuccess() throws IOException {
-		
+
 		TaskManager taskManager = new TaskManager();
 		taskManager.addTask(new Task("Task 1", "Description 1"));
 		taskManager.addTask(new Task("Task 2", "Description 2"));
@@ -90,18 +99,19 @@ class TestSaveTaskFile {
 		assertEquals("Task 1 - Description 1", lines.get(0));
 		assertEquals("Task 2 - Description 2", lines.get(1));
 	}
+
 	@Test
 	void testSaveTaskFileWithNullFile() {
-	    // Setup
-	    TaskManager taskManager = new TaskManager();
-	    taskManager.addTask(new Task("Task 1", "Description 1"));
+		// Setup
+		TaskManager taskManager = new TaskManager();
+		taskManager.addTask(new Task("Task 1", "Description 1"));
 
-	    // Act & Assert
-	    IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-	        TaskFileHandler.saveTaskFile(taskManager, null);
-	    });
+		// Act & Assert
+		IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+			TaskFileHandler.saveTaskFile(taskManager, null);
+		});
 
-	    assertEquals("File could not be loaded file was null", exception.getMessage(), 
-	                 "Expected IllegalStateException with a specific error message when file is null");
+		assertEquals("File could not be loaded: file was null", exception.getMessage(),
+				"Expected IllegalStateException with a specific error message when file is null");
 	}
 }

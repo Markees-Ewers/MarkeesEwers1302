@@ -10,6 +10,7 @@ import edu.westga.cs1302.project3.model.TaskManager;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,18 +32,50 @@ public class MainWindowVM {
 	 */
 	public MainWindowVM() {
 		this.taskManager = new TaskManager();
-		this.tasks = new SimpleListProperty<>(FXCollections.observableArrayList(this.taskManager.getAllTasks()));
-		Task defualtTask = new Task("take walk", "walk around the building");
-		this.tasks.add(defualtTask);
+		ObservableList<Task> observableTasks = FXCollections.observableList(this.taskManager.getAllTasks());
+		this.tasks = new SimpleListProperty<>(observableTasks);
+		Task defaultTask = new Task("take walk", "walk around the building");
+		this.addTask(defaultTask);
+		System.out.println(this.taskManager.getAllTasks().size());
+	}
+
+	/**
+	 * Adds the task.
+	 *
+	 * @param task the task
+	 */
+	public void addTask(Task task) {
+		this.taskManager.addTask(task);
+		this.tasks.set(FXCollections.observableArrayList(this.taskManager.getAllTasks()));
+	}
+
+	/**
+	 * Removes the task.
+	 *
+	 * @param task the task
+	 */
+	public void removeTask(Task task) {
+		this.taskManager.removeTask(task);
+		this.tasks.set(FXCollections.observableArrayList(this.taskManager.getAllTasks()));
+	}
+
+	/**
+	 * Task property.
+	 *
+	 * @return the list property
+	 */
+	public ListProperty<Task> tasksProperty() {
+		return this.tasks;
 	}
 
 	/**
 	 * Load tasks into listView.
-	 *
+	 * 
+	 * @param file the file that it rights to
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public void loadTasks() throws IOException {
-		File file = TaskFileHandler.taskFileChooser(true);
+	public void loadTasks(File file) throws IOException {
+
 		List<Task> tasks = TaskFileHandler.loadTaskFile(file);
 		if (file != null) {
 			if (!file.getName().toLowerCase().endsWith(".txt")) {
@@ -55,12 +88,21 @@ public class MainWindowVM {
 	}
 
 	/**
-	 * Task property.
+	 * Save task.
 	 *
-	 * @return the list property
+	 * @param file the file
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public ListProperty<Task> tasksProperty() {
-		return this.tasks;
-	}
+	public void saveTask(File file) throws IOException {
+		if (file == null) {
+			System.out.println("No file selected. Save operation canceled.");
+			return;
+		}
 
+		// Convert ObservableList to standard ArrayList
+
+		File savedFile = TaskFileHandler.saveTaskFile(this.taskManager, file);
+		System.out.println("Tasks successfully saved to " + savedFile.getAbsolutePath());
+
+	}
 }

@@ -1,5 +1,6 @@
 package edu.westga.cs1302.project3.view;
 
+import java.io.File;
 import java.io.IOException;
 
 import edu.westga.cs1302.project3.model.Task;
@@ -7,6 +8,7 @@ import edu.westga.cs1302.project3.viewmodel.MainWindowVM;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 
@@ -21,6 +23,8 @@ public class MainWindow {
 	private ListView<Task> taskListView;
 	@FXML
 	private MenuItem loadTaskMenuItem;
+	@FXML
+	private MenuItem saveTaskMenuItem;
 
 	private MainWindowVM mainWindowVM;
 
@@ -29,13 +33,27 @@ public class MainWindow {
 		this.mainWindowVM = new MainWindowVM();
 
 		this.taskListView.itemsProperty().bind(this.mainWindowVM.tasksProperty());
-		this.menuButtons();
+		this.loadMenu();
+		this.saveMenu();
 	}
 
-	private void menuButtons() {
+	private void loadMenu() {
 		this.loadTaskMenuItem.setOnAction(event -> {
 			try {
-				this.mainWindowVM.loadTasks();
+				this.mainWindowVM.loadTasks(this.taskFileChooser(true));
+			} catch (IOException ex) {
+				this.popup(ex.getMessage(), AlertType.ERROR);
+
+			} catch (IllegalArgumentException ex) {
+				this.popup(ex.getMessage(), AlertType.ERROR);
+			}
+		});
+	}
+
+	private void saveMenu() {
+		this.saveTaskMenuItem.setOnAction(event -> {
+			try {
+				this.mainWindowVM.saveTask(this.taskFileChooser(false));
 			} catch (IOException ex) {
 				this.popup(ex.getMessage(), AlertType.ERROR);
 			} catch (IllegalArgumentException ex) {
@@ -44,10 +62,33 @@ public class MainWindow {
 		});
 	}
 
+	/**
+	 * Save task file.
+	 *
+	 * 
+	 * @return the file that the user selects
+	 * @param showOpen if true the button shows a prompt to open otherwise it shows
+	 *                 to save;
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	private File taskFileChooser(Boolean showOpen) throws IOException {
+		// can't test this because its user input but its handled by built in
+		// filechooser
+		FileChooser chooser = new FileChooser();
+		if (showOpen) {
+			chooser.setTitle("Open Task File");
+			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+			return chooser.showOpenDialog(null);
+		} else {
+			chooser.setTitle("Save Task File");
+			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+			return chooser.showSaveDialog(null);
+		}
+	}
+
 	private void popup(String message, AlertType alertType) {
 		Alert alert = new Alert(alertType);
 		alert.setContentText(message);
-		alert.setHeaderText(message);
 		alert.showAndWait();
 	}
 

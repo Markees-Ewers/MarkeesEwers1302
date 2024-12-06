@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import javafx.stage.FileChooser;
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class TaskFileHandler.
  * 
@@ -17,59 +13,39 @@ import javafx.stage.FileChooser;
  * @version spring 2024
  */
 public class TaskFileHandler {
-
 	/**
 	 * Save task file.
 	 *
-	 * 
-	 * @return the file that the user selects
-	 * @param showOpen if true the button shows a prompt to open otherwise it shows
-	 *                 to save;
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param tasks        the tasks to be saved
+	 * @param selectedFile the file location to write to
+	 * @return the file location of the saved file
+	 * @throws IOException              if an I/O exception occurs
+	 * @throws IllegalStateException    if the file is null (likely because the file
+	 *                                  chooser was closed)
+	 * @throws IllegalArgumentException if tasks is null
 	 */
-	public static File taskFileChooser(Boolean showOpen) throws IOException {
-		// can't test this because its user input but its handled by built in
-		// filechooser
-		FileChooser chooser = new FileChooser();
-		if (showOpen) {
-			chooser.setTitle("Open Task File");
-			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-			return chooser.showOpenDialog(null);
-		} else {
-			chooser.setTitle("Save Task File");
-			chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-			return chooser.showSaveDialog(null);
-		}
-	}
-
-	/**
-	 * Save task file.
-	 *
-	 * @param tasks        the tasks
-	 * @param selectedFile the fileLocation to write to
-	 * @throws IOException           Signals that an I/O exception has occurred.
-	 * @throws IllegalStateException if file is null likely because filechooser was
-	 *                               closed
-	 * @returns the file location of the saved file
-	 */
-	public static void saveTaskFile(TaskManager tasks, File selectedFile) throws IOException, IllegalStateException {
+	public static File saveTaskFile(TaskManager tasks, File selectedFile) throws IOException {
 		if (tasks == null) {
-			throw new IllegalArgumentException("tasks cannot be null");
+			throw new IllegalArgumentException("Tasks cannot be null");
 		}
 		if (selectedFile == null) {
-			throw new IllegalStateException("File could not be loaded file was null");
+			throw new IllegalStateException("File could not be loaded: file was null");
 		}
+
+		// Ensure the file has a ".txt" extension
 		if (!selectedFile.getName().endsWith(".txt")) {
 			selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
 		}
+
+		// Write tasks to the file
 		try (FileWriter writer = new FileWriter(selectedFile)) {
 			for (Task curr : tasks.getAllTasks()) {
 				writer.write(curr.getName() + " - " + curr.getDescription() + System.lineSeparator());
 			}
 			System.out.println("Tasks successfully saved to " + selectedFile.getAbsolutePath());
-		} catch (IOException ex) {
-			System.err.println("Error saving tasks: " + ex.getMessage());
 		}
+
+		return selectedFile;
 	}
 
 	/**
@@ -79,9 +55,9 @@ public class TaskFileHandler {
 	 * @param file to load
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static List<Task> loadTaskFile(File file) throws IOException {
+	public static ArrayList<Task> loadTaskFile(File file) throws IOException {
 
-		List<Task> tasks = new ArrayList<>();
+		ArrayList<Task> tasks = new ArrayList<>();
 		if (file != null) {
 
 			try (Scanner scnr = new Scanner(file)) {
@@ -94,7 +70,8 @@ public class TaskFileHandler {
 						String description = parts[1];
 						tasks.add(new Task(name, description));
 					} else {
-						throw new IllegalArgumentException("Invalid task fomat error on line: " + line);
+						throw new IllegalArgumentException(
+								"Invalid File format error on line:    " + System.lineSeparator() + line);
 					}
 				}
 			}
